@@ -171,6 +171,15 @@ def validar_criterio(mensaje:str,lista_validos:list)->str:
 
 
 """
+1) Agregar las siguientes funciones al menú del trabajo práctico sobre diccionarios:
+- Desarrolle una función que permite guardar una lista de diccionarios en formato JSON (utilizar esta
+función como opción 11 y añadir guardado automático a la opción de salir, con confirmación por parte del
+usuario).
+- Desarrolle una función que permite leer una lista de diccionarios desde un archivo JSON (se carga
+automáticamente al ingresar a la opción de Altas).
+"""
+
+"""
 Opción 11:
 """
 def guardar_archivo_json(lista:list[dict], ruta:str):
@@ -189,4 +198,53 @@ def cargar_archivo_json(ruta:str)-> list[dict]:
         datos = json.load(mi_archivo)
     
     return datos
- 
+
+
+# 2) Desarrolle y pruebe las siguientes funciones en un archivo separado al de trabajo práctico sobre
+# diccionarios:
+# - Desarrolle una función que genere una matriz de 9 filas por 9 columnas con números aleatorios del 1
+# al 9 inclusive.
+import random
+
+def inicializar_matriz(filas:int, columnas:int, valor_inicial:any = None)->list:
+    """
+    """
+    lista = []
+    for _ in range(filas):
+        fila = [valor_inicial] * columnas
+        lista += [fila]
+    
+    return lista
+
+def generar_matriz_aleatoria(matriz:list):
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            matriz[i][j] = random.randint(1, 9)
+
+mi_matriz = inicializar_matriz(9, 9)
+#print(mi_matriz)
+generar_matriz_aleatoria(mi_matriz)
+#print(mi_matriz)
+
+# - Desarrolle una función que guarde la matriz generada aleatoriamente en un archivo con formato CSV,
+# donde las columnas están separadas por comas y las filas por saltos de línea (\n).
+
+# def guardar_archivo_CSV(matriz:list, ruta:str):
+#     with open(ruta, "w") as archivo:
+#         for i in range(len(matriz)):
+#             for j in range(len(matriz[i])):
+#                 if j == len(matriz[i])-1:
+#                     dato_a_escribir = str(matriz[i][j])+"\n"
+#                 else:
+#                     dato_a_escribir = str(matriz[i][j])+","
+#                 archivo.writelines(dato_a_escribir)
+
+#Versión de Ulises
+def guardar_archivo_CSV(matriz:list,ruta:str):
+    with open(ruta,"w") as archivo:
+        for fila in matriz:
+            archivo.write(str(fila).strip("[").strip("]"))
+            archivo.write("\n")
+            #archivo.write(str(fila).strip("[").strip("]")+"\n") -> En una sola línea
+
+guardar_archivo_CSV(mi_matriz, "Clase17/matriz.csv")

@@ -12,9 +12,13 @@ dimension_pantalla = (ancho_pantalla, largo_pantalla)
 # Creacion de una pantalla con sus dimensiones
 pantalla = pygame.display.set_mode(dimension_pantalla) 
 
+# pantalla = pygame.display.set_mode(dimension_pantalla, pygame.RESIZABLE) # Pantalla de tamaño ajustable
+
 # Cambia el titulo del juego
 pygame.display.set_caption("Sudoku") 
 
+# Icono del juego
+pygame.display.set_icon() 
 
 juego_corriendo = True
 

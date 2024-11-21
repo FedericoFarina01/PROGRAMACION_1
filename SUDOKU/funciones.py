@@ -1,5 +1,5 @@
+import pygame
 import random
-
 #----------------------------------------------------------------------------------------------------------------------------------
 
 def mostrar_matriz_sudoku(matriz: list) -> None:
@@ -174,3 +174,10 @@ def logica_sudoku(matriz: list) -> bool:
 matriz_sudoku = crear_matriz(9, 9, 0)  # Crear una matriz 9x9 vacía
 exito = logica_sudoku(matriz_sudoku)
 mostrar_matriz_sudoku(matriz_sudoku)
+
+
+#---------------------------------------------------------------------------------
+
+
+
+

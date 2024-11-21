@@ -36,8 +36,8 @@ pygame.display.set_caption("Sudoku")
 
 
 # Icono del juego
-#img_icono = pygame.image.load("SUDOKU/imagenes/.png")
-#pygame.display.set_icon() 
+img_icono = pygame.image.load("SUDOKU/imagenes/icon_sudoku.png")
+pygame.display.set_icon(img_icono) 
 
 
 juego_corriendo = True

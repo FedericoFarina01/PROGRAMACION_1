@@ -1,26 +1,5 @@
 import pygame
 
-def dibujar_botones_inicio(pantalla_inicio, img_inicio, texto_jugar, texto_puntajes, texto_salir):
-    pantalla_inicio.fill((255, 255, 255))  # Llena la pantalla de un color de fondo
-    pantalla_inicio.blit(img_inicio, (0, 0))  # Imagen de fondo
-
-    # Botón Jugar
-    pygame.draw.rect(pantalla_inicio, (46, 134, 193), (290 - 2, 90 - 2 , 135 + 4, 80 + 4), border_radius=15)
-    pygame.draw.rect(pantalla_inicio, (255, 255, 255), (290, 90, 135, 80), border_radius=15)
-    pantalla_inicio.blit(texto_jugar, (300, 100))
-
-    # Botón Puntajes
-    pygame.draw.rect(pantalla_inicio, (46, 134, 193), (290 - 2, 240 - 2 , 190 + 4, 80 + 4), border_radius=15)
-    pygame.draw.rect(pantalla_inicio, (255, 255, 255), (290, 240, 190, 80), border_radius=10)
-    pantalla_inicio.blit(texto_puntajes, (300, 250))
-
-    # Botón Salir
-
-    pygame.draw.rect(pantalla_inicio, (46, 134, 193), (290 - 2, 390 - 2 , 125 + 4, 80 + 4), border_radius=15)
-    pygame.draw.rect(pantalla_inicio, (255, 255, 255), (290, 390, 125, 80), border_radius=10)
-    pantalla_inicio.blit(texto_salir, (300, 400))
-
-
 def dibujar_boton_volver(pantalla):
     x = 10
     y = 10
@@ -39,3 +18,49 @@ def dibujar_boton_volver(pantalla):
 
 
 #-------------------------------------------------------
+def dibujar_boton_jugar(pantalla):
+    x = 290
+    y = 90
+    ancho = 135
+    alto = 80
+
+    rect_jugar = pygame.Rect(x, y, ancho, alto)
+    pygame.draw.rect(pantalla, (46, 134, 193), (x - 2, y - 2 , ancho + 4, alto + 4), border_radius=15)
+    pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto), border_radius=15)
+    fuente = pygame.font.SysFont("Arial", 50, bold=True)
+    texto_jugar = fuente.render("Jugar", True, (0, 0, 0))
+    pantalla.blit(texto_jugar, (x + 15, y + 10))
+
+    return rect_jugar
+
+
+def dibujar_boton_puntajes(pantalla):
+    x = 290
+    y = 240
+    ancho = 190
+    alto = 80
+
+    rect_puntajes = pygame.Rect(x, y, ancho, alto)
+    pygame.draw.rect(pantalla, (46, 134, 193), (x - 2, y - 2 , ancho + 4, alto + 4), border_radius=15)
+    pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto), border_radius=10)
+    fuente = pygame.font.SysFont("Arial", 50, bold=True)
+    texto_puntajes = fuente.render("Puntajes", True, (0, 0, 0))
+    pantalla.blit(texto_puntajes, (x + 15, y + 10))
+
+    return rect_puntajes
+
+
+def dibujar_boton_salir(pantalla):
+    x = 290
+    y = 390
+    ancho = 125
+    alto = 80
+
+    rect_salir = pygame.Rect(x, y, ancho, alto)
+    pygame.draw.rect(pantalla, (46, 134, 193), (x - 2, y - 2 , ancho + 4, alto + 4), border_radius=15)
+    pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto), border_radius=10)
+    fuente = pygame.font.SysFont("Arial", 50, bold=True)
+    texto_salir = fuente.render("Salir", True, (0, 0, 0))
+    pantalla.blit(texto_salir, (x + 15, y + 10))
+
+    return rect_salir

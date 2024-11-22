@@ -1,6 +1,9 @@
 import pygame
 from funciones import *
 from botones import *
+from pantallas.inicio import dibujar_pantalla_inicio
+from pantallas.principal import dibujar_pantalla_principal
+from pantallas.puntajes import dibujar_pantalla_puntajes
 
 # Inicializamos pygame
 pygame.init()
@@ -13,13 +16,6 @@ dimension_pantalla = (ancho_pantalla, largo_pantalla)
 # Creación de una pantalla
 pantalla = pygame.display.set_mode(dimension_pantalla)
 
-# Cargar imágenes
-img_inicio = pygame.image.load("SUDOKU/imagenes/img_fondo_inicio.png")
-img_inicio = pygame.transform.scale(img_inicio, dimension_pantalla)
-
-img_puntajes = pygame.image.load("SUDOKU/imagenes/puntajes.jpg")
-img_puntajes = pygame.transform.scale(img_puntajes, dimension_pantalla)
-
 # Cambia el título del juego
 pygame.display.set_caption("Sudoku")
 
@@ -29,7 +25,7 @@ pygame.display.set_icon(img_icono)
 
 # Variables de estado
 juego_corriendo = True
-pantalla_activa = "inicio"  # Puede ser "inicio", "principal", o "puntajes"
+pantalla_activa = "inicio"  
 click_izq = pygame.MOUSEBUTTONDOWN
 
 while juego_corriendo:
@@ -41,11 +37,10 @@ while juego_corriendo:
             pygame.quit()
             quit()
 
-        # Detectar clics del ratón
+        # Detectar clics del mouse
         if evento.type == click_izq:
             x, y = evento.pos
-            print(f"Clic detectado en: {x}, {y}")  # Depuración para confirmar coordenadas
-
+            
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
                 rect_jugar = dibujar_boton_jugar(pantalla)
@@ -76,19 +71,12 @@ while juego_corriendo:
 
     # Dibujar la pantalla correspondiente
     if pantalla_activa == "inicio":
-        pantalla.fill((255, 255, 255))
-        pantalla.blit(img_inicio, (0, 0))
-        dibujar_boton_jugar(pantalla)
-        dibujar_boton_puntajes(pantalla)
-        dibujar_boton_salir(pantalla)
+        dibujar_pantalla_inicio(pantalla)
 
     elif pantalla_activa == "principal":
-        pantalla.fill((255, 255, 255))  # Muestra una pantalla blanca para el modo principal
-        dibujar_boton_volver(pantalla)  # Dibujar el botón "Volver"
+         dibujar_pantalla_principal(pantalla)
 
     elif pantalla_activa == "puntajes":
-        pantalla.fill((255, 255, 255))  # Muestra una pantalla blanca para los puntajes
-        pantalla.blit(img_puntajes, (0, 0))
-        dibujar_boton_volver(pantalla)  # Dibujar el botón "Volver"
+        dibujar_pantalla_puntajes(pantalla)
 
     pygame.display.flip()  # Actualiza la pantalla

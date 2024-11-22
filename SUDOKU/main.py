@@ -39,34 +39,29 @@ while juego_corriendo:
 
         # Detectar clics del mouse
         if evento.type == click_izq:
-            x, y = evento.pos
+            cursor = pygame.mouse.get_pos()
             
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
-                rect_jugar = dibujar_boton_jugar(pantalla)
-                rect_puntajes = dibujar_boton_puntajes(pantalla)
-                rect_salir = dibujar_boton_salir(pantalla)
-
-                if rect_jugar.collidepoint(x, y):
+        
+                if dibujar_boton_jugar(pantalla).collidepoint(cursor):
                     pantalla_activa = "principal"
 
-                elif rect_puntajes.collidepoint(x, y):
+                elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
                     pantalla_activa = "puntajes"
 
-                elif rect_salir.collidepoint(x, y):
+                elif dibujar_boton_salir(pantalla).collidepoint(cursor):
                     juego_corriendo = False
                     pygame.quit()
                     quit()
 
             # Detectar clic en el botón "Volver" en las pantallas "principal" o "puntajes"
             elif pantalla_activa == "principal":
-                rect_volver = dibujar_boton_volver(pantalla)
-                if rect_volver.collidepoint(x, y):
+                if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
 
             elif pantalla_activa == "puntajes":
-                rect_volver = dibujar_boton_volver(pantalla)
-                if rect_volver.collidepoint(x, y):
+                if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
 
     # Dibujar la pantalla correspondiente

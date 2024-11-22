@@ -39,18 +39,6 @@ def crear_matriz(cantidad_filas:int, cantidad_columnas:int, valor_inicial:int) -
 
 #---------------------------------------------------------------------------------------------------------------------------------
 
-def cargar_numeros_random(matriz: list, desde: int = 1, hasta: int = 9) -> None:
-    numeros = list(range(desde, hasta + 1))  # Generar los números únicos en el rango
-    random.shuffle(numeros)  # Mezclar los números aleatoriamente
-    
-    indice = 0
-    for fila in range(len(matriz)):
-        for columna in range(len(matriz[fila])):
-            matriz[fila][columna] = numeros[indice]
-            indice += 1
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
 def verificar_numero_repetido_en_fila(matriz: list, numero: int, fila: int) -> bool:
     """
     Verifica si un número está repetido en la fila especificada de la matriz de Sudoku.
@@ -137,17 +125,17 @@ def verificar_numero_repetido_en_submatriz(matriz: list, fila: int, columna: int
 
 #---------------------------------------------------------------------------------------------------------------------------------
 
-def generar_tablero_sudoku():
+def generar_tablero_sudoku(valor_filas: int = 9, valor_columnas: int = 9, valor_inicial: int = 0, desde: int = 0, hasta: int = 8) -> list:
     """
     Genera una matriz 9x9 que sigue las reglas del Sudoku.
     
     Retorna:
         list: Matriz 9x9 con un Sudoku válido.
     """
-    matriz = crear_matriz(9, 9, 0)  # Crear matriz vacía 9x9 con ceros
+    matriz = crear_matriz(valor_filas, valor_columnas, valor_inicial)  # Crear matriz vacía 9x9 con ceros
     
-    for fila in range(9):
-        for columna in range(9):
+    for fila in range(desde, hasta + 1):
+        for columna in range(desde, hasta + 1):
             numeros_disponibles = list(range(1, 10))
             random.shuffle(numeros_disponibles)  # Mezclar números posibles para colocar
             
@@ -157,9 +145,12 @@ def generar_tablero_sudoku():
                     not verificar_numero_repetido_en_submatriz(matriz, fila, columna, numero)):
                     matriz[fila][columna] = numero
                     break
+            # Si no es posible colocar un número válido, reiniciamos el proceso
+            if matriz[fila][columna] == 0:
+                return generar_tablero_sudoku(valor_filas, valor_columnas, valor_inicial, desde, hasta)  # Llamada recursiva sin pasar la matriz
     return matriz
 
 # Ejemplo de uso:
 matriz_sudoku = generar_tablero_sudoku()
 mostrar_matriz_sudoku(matriz_sudoku)
-
+print("\nMatriz Sudoku generada correctamente!")

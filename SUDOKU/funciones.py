@@ -177,6 +177,35 @@ mostrar_matriz_sudoku(matriz_sudoku)
 
 
 #---------------------------------------------------------------------------------
+import pygame
+
+def realizar_transicion(pantalla, tiempo_transicion, pantalla_destino):
+    # Variables para el fundido
+    opacidad = 0  # Nivel de opacidad para el fundido (de 0 a 255)
+    velocidad = pygame.time.Clock()  # Reloj para controlar la velocidad de la transición
+    tiempo = 0  # Acumulador del tiempo
+
+    # Bucle de transición
+    while tiempo < tiempo_transicion:
+        tiempo += velocidad.tick(60)  # Incrementar tiempo, controlando a 60 FPS
+
+        # Incrementar la opacidad gradualmente
+        opacidad = min(255, int(255 * (tiempo/ tiempo_transicion)))
+
+        # Dibujar la capa de fundido en la pantalla
+        pantalla.fill((255, 255, 255))  # Limpiar la pantalla (puedes usar un color diferente si lo deseas)
+        pantalla.blit(pantalla_destino, (0, 0))  # Dibujar la nueva pantalla
+        superficie_fundido = pygame.Surface((pantalla.get_width(), pantalla.get_height()))
+        superficie_fundido.fill((0, 0, 0))  # Fondo negro
+        superficie_fundido.set_alpha(opacidad)  # Establecer la opacidad
+        pantalla.blit(superficie_fundido, (0, 0))  # Dibujar el fundido en la pantalla
+
+        pygame.display.flip()  # Actualizar la pantalla
+
+    # Asegúrate de que el fundido esté completamente opaco al final
+    pantalla.blit(pantalla_destino, (0, 0))
+    pygame.display.flip()
+
 
 
 

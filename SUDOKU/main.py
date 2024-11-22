@@ -27,9 +27,9 @@ pygame.display.set_caption("Sudoku")
 img_icono = pygame.image.load("SUDOKU/imagenes/icon_sudoku.png")
 pygame.display.set_icon(img_icono)
 
-# Variables de estado
+# Variables
 juego_corriendo = True
-pantalla_activa = "inicio"  # Puede ser "inicio", "principal", o "puntajes"
+pantalla_activa = "inicio"
 click_izq = pygame.MOUSEBUTTONDOWN
 
 while juego_corriendo:
@@ -44,7 +44,6 @@ while juego_corriendo:
         # Detectar clics del ratón
         if evento.type == click_izq:
             x, y = evento.pos
-            print(f"Clic detectado en: {x}, {y}")  # Depuración para confirmar coordenadas
 
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
@@ -74,7 +73,7 @@ while juego_corriendo:
                 if rect_volver.collidepoint(x, y):
                     pantalla_activa = "inicio"
 
-    # Dibujar la pantalla correspondiente
+    # Dibujar pantallas
     if pantalla_activa == "inicio":
         pantalla.fill((255, 255, 255))
         pantalla.blit(img_inicio, (0, 0))
@@ -83,12 +82,12 @@ while juego_corriendo:
         dibujar_boton_salir(pantalla)
 
     elif pantalla_activa == "principal":
-        pantalla.fill((255, 255, 255))  # Muestra una pantalla blanca para el modo principal
-        dibujar_boton_volver(pantalla)  # Dibujar el botón "Volver"
+        pantalla.fill((255, 255, 255))  
+        dibujar_boton_volver(pantalla) 
 
     elif pantalla_activa == "puntajes":
-        pantalla.fill((255, 255, 255))  # Muestra una pantalla blanca para los puntajes
+        pantalla.fill((255, 255, 255))  
         pantalla.blit(img_puntajes, (0, 0))
-        dibujar_boton_volver(pantalla)  # Dibujar el botón "Volver"
+        dibujar_boton_volver(pantalla)  
 
     pygame.display.flip()  # Actualiza la pantalla

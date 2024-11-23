@@ -154,3 +154,25 @@ def generar_tablero_sudoku(valor_filas: int = 9, valor_columnas: int = 9, valor_
 matriz_sudoku = generar_tablero_sudoku()
 mostrar_matriz_sudoku(matriz_sudoku)
 print("\nMatriz Sudoku generada correctamente!")
+
+#---------------------------------------------------------------------------------------------------------------------------------
+
+def ocultar_datos_matriz(matriz:list, caracter:str, valor_ocultar:int) -> None:
+    """
+    """
+    for i in range(len(matriz)):
+        if i % 3 == 0 and i != 0:
+            print("-" * (len(matriz[i]) * 2 + 3))
+
+        for j in range(len(matriz[i])):
+            if j % 3 == 0 and j != 0:
+                print("|", end=" ")
+
+            if int(matriz[i][j]) % 2 == valor_ocultar:
+                print(caracter, end=" ")
+            else:
+                print(matriz[i][j], end=" ")
+        print()
+
+print("\nMatriz con datos ocultos:\n")
+ocultar_datos_matriz(matriz_sudoku, "-", 0)

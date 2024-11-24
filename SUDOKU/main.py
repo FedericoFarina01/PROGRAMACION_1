@@ -32,6 +32,7 @@ pygame.mixer.music.play(-1)
 # Variables
 juego_corriendo = True
 pantalla_activa = "inicio"  
+nombre_jugador = ""
 
 click_izq = pygame.MOUSEBUTTONDOWN
 
@@ -72,6 +73,7 @@ while juego_corriendo:
                     elif dificultad == "Dificil":
                         dificultad = "Facil"
 
+
                  # Detectar clic en el botón "Volver" en las pantallas "principal" o "puntajes"
             elif pantalla_activa == "principal":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
@@ -85,7 +87,7 @@ while juego_corriendo:
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":
-        dibujar_pantalla_inicio(pantalla, dificultad)
+        dibujar_pantalla_inicio(pantalla, dificultad, nombre_jugador)
 
     elif pantalla_activa == "principal":
          dibujar_pantalla_principal(pantalla)

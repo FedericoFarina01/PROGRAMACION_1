@@ -17,7 +17,7 @@ def dibujar_boton_jugar(pantalla):
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_puntajes(pantalla):
     x = 290
-    y = 300
+    y = 270
     ancho = 135
     alto = 80
 
@@ -30,7 +30,7 @@ def dibujar_boton_puntajes(pantalla):
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_dificultad(pantalla, dificultad):
     x = 290
-    y = 400
+    y = 340
     ancho = 190
     alto = 80
 
@@ -43,7 +43,7 @@ def dibujar_boton_dificultad(pantalla, dificultad):
 #----------------------------------------------------------------------------------
 def dibujar_boton_salir(pantalla):
     x = 290
-    y = 500
+    y = 410
     ancho = 125
     alto = 80
 
@@ -68,16 +68,23 @@ def dibujar_boton_volver(pantalla):
     return rect_volver
 
 #--------------------------------------------------------------------------------------------------------------
-""" def dibujar_nombre(pantalla):
-    lista_eventos = pygame.event.get()
-    for evento in lista_eventos:
-        if evento.type == pygame.KEYDOWN:
-            if evento.key == pygame.K_BACKSPACE: # Borrar
-                ingreso = ingreso[0:-1] # Borro el ultimo caracter
-            elif evento.key == pygame.K_RETURN:  # Enter
-                
-            else:
-                ingreso += evento.unicode """
+def dibujar_boton_nombre(pantalla, nombre_jugador):
+
+    x = 120
+    y = 560
+    ancho = 250
+    alto = 30
+
+    # Dibujar la caja de texto
+    rect_nombre = pygame.draw.rect(pantalla, (0, 0, 0),(x, y, ancho, alto))  # Fondo caja nombre
+    fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0))
+    fuente_etiqueta = pygame.font.SysFont("Arial", 30, bold=True)
+    etiqueta = fuente_etiqueta.render("Nombre: ", True, (0, 0, 0))
+    pantalla.blit(texto_nombre, (x + 5, y + 5))  # Texto dentro de la caja
+    pantalla.blit(etiqueta, (10, 560))
+
+    return rect_nombre
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -118,3 +125,26 @@ def dibujar_boton_reanudar(pantalla):
     pantalla.blit(imagen_reinciar, (x, y))
     
     return rect_volver
+
+
+#--------------------------------------------------------------------------------------------------------------
+def dibujar_errores(pantalla):
+
+    x = 475
+    y = 30
+
+    # Dibujar la caja de texto
+    fuente = pygame.font.SysFont("Arial", 20, bold=True)
+    errores = fuente.render("Errores: ", True, (50, 90, 175))
+    pantalla.blit(errores, (x + 5, y + 5))  # Texto dentro de la caja
+
+#--------------------------------------------------------------------------------------------------------------
+def dibujar_tiempo(pantalla):
+
+    x = 150
+    y = 30
+
+    # Dibujar la caja de texto
+    fuente = pygame.font.SysFont("Arial", 20, bold=True)
+    errores = fuente.render("Tiempo: ", True, (50, 90, 175))
+    pantalla.blit(errores, (x + 5, y + 5))  # Texto dentro de la caja

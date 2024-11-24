@@ -18,6 +18,8 @@ def dibujar_pantalla_principal(pantalla):
     dibujar_boton_reiniciar(pantalla)
     dibujar_boton_pausa(pantalla)
     dibujar_boton_reanudar(pantalla)
+    dibujar_errores(pantalla)
+    dibujar_tiempo(pantalla)
     dibujar_matriz_sudoku(pantalla, matriz_sudoku)
     pygame.mixer.music.stop()
 
@@ -35,23 +37,23 @@ def dibujar_matriz_sudoku(pantalla, matriz):
         matriz: La matriz de Sudoku que se debe mostrar.
     """
     # Colores
-    color_linea = (0, 0, 0)  # Negro para las líneas
+    color_linea = (50, 90, 175) 
     color_numeros= (0, 0, 0)  # Negro para los números
     
     # Coordenadas de inicio y tamaño de celdas
-    inicio_x = 10
-    inicio_y = 80
-    tamaño_celda = 50  # Cada celda será de 50x50 píxeles
+    inicio_x = 150
+    inicio_y = 60
+    tamaño_celda = 55 # Cada celda será de 50x50 píxeles
 
     # Dibujar la cuadrícula (líneas horizontales y verticales)
     for fila in range(10):  # Dibujar 9 líneas más una extra para el borde
-        grosor = 2 if fila % 3 == 0 else 1  # Líneas más gruesas cada 3
+        grosor = 3 if fila % 3 == 0 else 1  # Líneas más gruesas cada 3
 
-        pygame.draw.line(pantalla, color_linea, (inicio_x, inicio_y + fila * tamaño_celda), 
+        pygame.draw.line(pantalla, (color_linea), (inicio_x, inicio_y + fila * tamaño_celda), 
                          (inicio_x + 9 * tamaño_celda, inicio_y + fila * tamaño_celda), 
                          grosor)
         
-        pygame.draw.line(pantalla, color_linea, 
+        pygame.draw.line(pantalla, (color_linea), 
                          (inicio_x + fila * tamaño_celda, inicio_y), 
                          (inicio_x + fila * tamaño_celda, inicio_y + 9 * tamaño_celda), 
                          grosor)

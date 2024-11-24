@@ -35,6 +35,7 @@ pantalla_activa = "inicio"
 
 click_izq = pygame.MOUSEBUTTONDOWN
 
+dificultad = "Facil"
 
 while juego_corriendo:
     # Iterar sobre todos los eventos
@@ -51,7 +52,6 @@ while juego_corriendo:
             
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
-        
                 if dibujar_boton_jugar(pantalla).collidepoint(cursor):
                     pantalla_activa = "principal"
 
@@ -63,7 +63,16 @@ while juego_corriendo:
                     pygame.quit()
                     quit()
 
-            # Detectar clic en el botón "Volver" en las pantallas "principal" o "puntajes"
+                # Detectar clic en el botón de dificultad
+                elif dibujar_boton_dificultad(pantalla, dificultad).collidepoint(cursor):
+                    if dificultad == "Facil":
+                        dificultad = "Medio"
+                    elif dificultad == "Medio":
+                        dificultad = "Dificil"
+                    elif dificultad == "Dificil":
+                        dificultad = "Facil"
+
+                 # Detectar clic en el botón "Volver" en las pantallas "principal" o "puntajes"
             elif pantalla_activa == "principal":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
@@ -76,7 +85,7 @@ while juego_corriendo:
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":
-        dibujar_pantalla_inicio(pantalla)
+        dibujar_pantalla_inicio(pantalla, dificultad)
 
     elif pantalla_activa == "principal":
          dibujar_pantalla_principal(pantalla)

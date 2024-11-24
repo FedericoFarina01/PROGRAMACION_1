@@ -15,21 +15,6 @@ def dibujar_boton_jugar(pantalla):
     return rect_jugar
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_dificultad(pantalla):
-    x = 290
-    y = 400
-    ancho = 190
-    alto = 80
-
-    dificultad = "Facil"
-
-    rect_dificultad = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
-    fuente = pygame.font.SysFont("Arial", 40, bold=True)
-    texto_jugar = fuente.render(dificultad, True, (0, 0, 0))         
-    pantalla.blit(texto_jugar, (x + 15, y + 10))
-
-    return rect_dificultad
-#--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_puntajes(pantalla):
     x = 290
     y = 300
@@ -42,8 +27,20 @@ def dibujar_boton_puntajes(pantalla):
     pantalla.blit(texto_puntajes, (x + 15, y + 10))
 
     return rect_puntajes
-
 #--------------------------------------------------------------------------------------------------------------
+def dibujar_boton_dificultad(pantalla, dificultad):
+    x = 290
+    y = 400
+    ancho = 190
+    alto = 80
+
+    rect_dificultad = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
+    fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    texto_dificultad = fuente.render(dificultad, True, (0, 0, 0))
+    pantalla.blit(texto_dificultad, (x + 15, y + 10))
+
+    return rect_dificultad
+#----------------------------------------------------------------------------------
 def dibujar_boton_salir(pantalla):
     x = 290
     y = 500
@@ -69,6 +66,19 @@ def dibujar_boton_volver(pantalla):
     pantalla.blit(imagen_volver, (x, y))
     
     return rect_volver
+
+#--------------------------------------------------------------------------------------------------------------
+""" def dibujar_nombre(pantalla):
+    lista_eventos = pygame.event.get()
+    for evento in lista_eventos:
+        if evento.type == pygame.KEYDOWN:
+            if evento.key == pygame.K_BACKSPACE: # Borrar
+                ingreso = ingreso[0:-1] # Borro el ultimo caracter
+            elif evento.key == pygame.K_RETURN:  # Enter
+                
+            else:
+                ingreso += evento.unicode """
+
 
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_reiniciar(pantalla):

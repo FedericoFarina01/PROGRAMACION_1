@@ -23,7 +23,7 @@ def dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores):
     dibujar_errores(pantalla, cant_errores)
     dibujar_tiempo(pantalla, tiempo_inicio)
     dibujar_matriz_sudoku(pantalla, matriz_sudoku)
-   # pygame.mixer.music.stop()
+    pygame.mixer.music.stop()
 
 
 

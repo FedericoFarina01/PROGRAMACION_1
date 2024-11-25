@@ -75,8 +75,8 @@ def dibujar_boton_volver(pantalla):
     imagen_volver = pygame.image.load("SUDOKU/imagenes/flecha_volver.png")
     imagen_volver = pygame.transform.scale(imagen_volver, (50, 50))  
 
-    x = 10
-    y = 10
+    x = 70
+    y = 70
     
     rect_volver = pygame.Rect(x, y, 50, 50)
     pantalla.blit(imagen_volver, (x, y))
@@ -84,23 +84,23 @@ def dibujar_boton_volver(pantalla):
     return rect_volver
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_nombre(pantalla, nombre_jugador):
+# EL INGRESO DEL NOMBRA VA A IR AL FINAL DE LA PARTIDA 
+""" def dibujar_boton_nombre(pantalla, nombre_jugador):
 
-    x = 120
-    y = 560
+    x = 200
+    y = 500
     ancho = 250
     alto = 30
 
 
     rect_nombre = pygame.draw.rect(pantalla, (0, 0, 0),(x, y, ancho, alto))  # Caja nombre
-    fuente = pygame.font.SysFont("Arial", 40, bold=True)
-    texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0))
-    fuente_etiqueta = pygame.font.SysFont("Arial", 25, bold=True)
-    etiqueta = fuente_etiqueta.render("Nombre: ", True, (0, 0, 0))
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    etiqueta = fuente.render("Nombre: ", True, (0, 0, 0)) # Etiqueta
+    texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0)) 
     pantalla.blit(texto_nombre, (x + 5, y + 5))  # Texto dentro de la caja
-    pantalla.blit(etiqueta, (10, 560))
+    pantalla.blit(etiqueta, (75, 510))
 
-    return rect_nombre
+    return rect_nombre """
 
 
 #--------------------------------------------------------------------------------------------------------------

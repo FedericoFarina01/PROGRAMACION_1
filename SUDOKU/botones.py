@@ -7,13 +7,13 @@ def dibujar_boton_jugar(pantalla):
     ancho = 120
     alto = 55
 
-    rect_jugar = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
+    rect_jugar = pygame.Rect(x, y, ancho, alto)
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
     sombra = fuente.render("Jugar", True, (0, 0, 0))  
     texto_jugar = fuente.render("Jugar", True, (0, 0, 0))
     if rect_jugar.collidepoint(pygame.mouse.get_pos()):
-        texto_jugar = fuente.render("Jugar", True, (21, 183, 30))
-    pantalla.blit(sombra, (x + 18, y + 12))
+        texto_jugar = fuente.render("Jugar", True, (200, 143, 90))
+        pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_jugar, (x + 15, y + 10))
 
     return rect_jugar
@@ -25,13 +25,13 @@ def dibujar_boton_puntajes(pantalla):
     ancho = 160
     alto = 55
 
-    rect_puntajes = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
+    rect_puntajes = pygame.Rect(x, y, ancho, alto)
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
     sombra = fuente.render("Puntajes", True, (0, 0, 0)) 
     texto_puntajes = fuente.render("Puntajes", True, (0, 0, 0))
     if rect_puntajes.collidepoint(pygame.mouse.get_pos()):
-        texto_puntajes = fuente.render("Puntajes", True, (16, 224, 35))
-    pantalla.blit(sombra, (x + 18, y + 12))
+        texto_puntajes = fuente.render("Puntajes", True, (200, 143, 90))
+        pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_puntajes, (x + 15, y + 10))
 
     return rect_puntajes
@@ -42,13 +42,13 @@ def dibujar_boton_dificultad(pantalla, dificultad):
     ancho = 110
     alto = 55
 
-    rect_dificultad = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
+    rect_dificultad = pygame.Rect(x, y, ancho, alto)
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
     sombra = fuente.render(dificultad, True, (0, 0, 0))
     texto_dificultad = fuente.render(dificultad, True, (0, 0, 0))
     if rect_dificultad.collidepoint(pygame.mouse.get_pos()):
-        texto_dificultad = fuente.render(dificultad, True, (195, 253, 39))
-    pantalla.blit(sombra, (x + 18, y + 12))
+        texto_dificultad = fuente.render(dificultad, True, (200, 143, 90))
+        pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_dificultad, (x + 15, y + 10))
 
     return rect_dificultad
@@ -59,13 +59,13 @@ def dibujar_boton_salir(pantalla):
     ancho = 100
     alto = 55
 
-    rect_salir = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
+    rect_salir = pygame.Rect(x, y, ancho, alto)
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
     sombra = fuente.render("Salir", True, (0, 0, 0))
     texto_salir = fuente.render("Salir", True, (0, 0, 0))
     if rect_salir.collidepoint(pygame.mouse.get_pos()):
-        texto_salir = fuente.render("Salir", True, (255, 233, 53))
-    pantalla.blit(sombra, (x + 18, y + 12))
+        texto_salir = fuente.render("Salir", True, (200, 143, 90))
+        pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_salir, (x + 15, y + 10))
 
     return rect_salir
@@ -112,9 +112,9 @@ def dibujar_boton_reiniciar(pantalla):
     alto = 40
     
     pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
-    rect_reiniciar = pygame.draw.rect(pantalla, (152, 166, 186), (x, y, ancho, alto), border_radius= 20)
+    rect_reiniciar = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20)
     fuente = pygame.font.SysFont("Arial", 25, bold=True)
-    texto_reiniciar = fuente.render("Reiniciar", True, (62, 99, 179))
+    texto_reiniciar = fuente.render("Reiniciar", True, (0, 0, 0))
     pantalla.blit(texto_reiniciar, (x + 15, y + 5))
     
     return rect_reiniciar
@@ -127,9 +127,9 @@ def dibujar_boton_pausa(pantalla):
     alto = 40
     
     pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
-    rect_pausa = pygame.draw.rect(pantalla, (152, 166, 186), (x, y, ancho, alto), border_radius= 20) 
+    rect_pausa = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
     fuente = pygame.font.SysFont("Arial", 25, bold=True)
-    texto_pausa = fuente.render("Pausa", True, (62, 99, 179))
+    texto_pausa = fuente.render("Pausa", True, (0, 0, 0))
     pantalla.blit(texto_pausa, (x + 28, y + 5))
     
     return rect_pausa
@@ -140,9 +140,11 @@ def dibujar_errores(pantalla, cant_errores):
     y = 30
 
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
-    errores_texto = fuente.render("Errores:", True, (152, 166, 186))  
+    errores_texto_sombra = fuente.render("Errores:", True, (0, 0, 0))
+    errores_texto = fuente.render("Errores:", True, (200, 143, 90))  
+    pantalla.blit(errores_texto_sombra, (x + 6 , y + 6)) 
     pantalla.blit(errores_texto, (x + 5, y + 5))
-    errores_valor = fuente.render((cant_errores), True, (62, 99, 179))  
+    errores_valor = fuente.render((cant_errores), True, (0, 0, 0))  
     pantalla.blit(errores_valor, (x + 90, y + 5)) 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -156,9 +158,11 @@ def dibujar_tiempo(pantalla, tiempo_inicio):
     y = 34
 
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
-    tiempo_texto = fuente.render("Tiempo:", True, (152, 166, 186))  
+    tiempo_texto_sombra = fuente.render("Tiempo:", True, (0, 0, 0))
+    tiempo_texto = fuente.render("Tiempo:", True, (200, 143, 90))  
+    pantalla.blit(tiempo_texto_sombra, (x + 1 , y + 1))  
     pantalla.blit(tiempo_texto, (x, y))  
-    tiempo_valor = fuente.render(f"{minutos:02}:{segundos:02}", True, (62, 99, 179)) 
+    tiempo_valor = fuente.render(f"{minutos:02}:{segundos:02}", True, (0, 0, 0)) 
     pantalla.blit(tiempo_valor, (x + 75, y))  
 
 

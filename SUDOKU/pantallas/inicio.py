@@ -16,8 +16,12 @@ img_pygame = pygame.transform.scale(img_pygame, (400, 250))
 img_sudoku = pygame.image.load("SUDOKU/imagenes/sudoku.png")
 img_sudoku = pygame.transform.scale(img_sudoku, (150, 50))
 
+img_fondo = pygame.image.load("SUDOKU/imagenes/marco.jpg")
+img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
+
 def dibujar_pantalla_inicio(pantalla, dificultad, nombre_jugador):
     pantalla.fill((255, 255, 255))  # Fondo blanco
+    pantalla.blit(img_fondo, (-100, -100))
     pantalla.blit(img_pygame, (160, 0))
     pantalla.blit(img_sudoku, (530, 130))
     # Dibujar botones

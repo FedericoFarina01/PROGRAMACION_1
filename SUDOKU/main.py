@@ -23,11 +23,11 @@ pygame.display.set_caption("Sudoku")
 img_icono = pygame.image.load("SUDOKU/imagenes/icon_sudoku.png")
 pygame.display.set_icon(img_icono)
 
-""" # Musica
+# Musica
 pygame.mixer.init()
 pygame.mixer.music.load("SUDOKU/musica/Vibe Mountain.mp3")
 pygame.mixer.music.set_volume(0.4)
-pygame.mixer.music.play(-1) """
+pygame.mixer.music.play(-1)
 
 # Variables
 juego_corriendo = True
@@ -82,7 +82,7 @@ while juego_corriendo:
             elif pantalla_activa == "principal":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
-                    #pygame.mixer.music.play(-1)
+                    pygame.mixer.music.play(-1)
 
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):

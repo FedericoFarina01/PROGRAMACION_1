@@ -7,13 +7,16 @@ ancho_pantalla = 800
 largo_pantalla = 600
 dimension_pantalla = (ancho_pantalla, largo_pantalla)
 
+img_fondo = pygame.image.load("SUDOKU/imagenes/marco.jpg")
+img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
+
 matriz_sudoku = generar_tablero_sudoku(9, 9, 0, 0, 8)
 
 # Creación de una pantalla
 pantalla = pygame.display.set_mode(dimension_pantalla)
 
 def dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores):
-    pantalla.fill((255, 255, 255))  
+    pantalla.blit(img_fondo, (-100, -100))
     dibujar_boton_volver(pantalla) 
     dibujar_boton_reiniciar(pantalla)
     dibujar_boton_pausa(pantalla)
@@ -36,7 +39,7 @@ def dibujar_matriz_sudoku(pantalla, matriz):
         matriz: La matriz de Sudoku que se debe mostrar.
     """
     # Colores
-    color_linea = (62, 99, 179)
+    color_linea = (0, 0, 0)
     color_numeros= (0, 0, 0)  # Negro para los números
     
     # Coordenadas de inicio y tamaño de celdas

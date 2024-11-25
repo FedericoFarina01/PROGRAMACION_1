@@ -4,12 +4,16 @@ import pygame
 def dibujar_boton_jugar(pantalla):
     x = 290
     y = 200
-    ancho = 135
-    alto = 80
+    ancho = 120
+    alto = 55
 
     rect_jugar = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    sombra = fuente.render("Jugar", True, (0, 0, 0))  
     texto_jugar = fuente.render("Jugar", True, (0, 0, 0))
+    if rect_jugar.collidepoint(pygame.mouse.get_pos()):
+        texto_jugar = fuente.render("Jugar", True, (21, 183, 30))
+    pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_jugar, (x + 15, y + 10))
 
     return rect_jugar
@@ -18,12 +22,16 @@ def dibujar_boton_jugar(pantalla):
 def dibujar_boton_puntajes(pantalla):
     x = 290
     y = 270
-    ancho = 135
-    alto = 80
+    ancho = 160
+    alto = 55
 
     rect_puntajes = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    sombra = fuente.render("Puntajes", True, (0, 0, 0)) 
     texto_puntajes = fuente.render("Puntajes", True, (0, 0, 0))
+    if rect_puntajes.collidepoint(pygame.mouse.get_pos()):
+        texto_puntajes = fuente.render("Puntajes", True, (16, 224, 35))
+    pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_puntajes, (x + 15, y + 10))
 
     return rect_puntajes
@@ -31,12 +39,16 @@ def dibujar_boton_puntajes(pantalla):
 def dibujar_boton_dificultad(pantalla, dificultad):
     x = 290
     y = 340
-    ancho = 190
-    alto = 80
+    ancho = 110
+    alto = 55
 
     rect_dificultad = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    sombra = fuente.render(dificultad, True, (0, 0, 0))
     texto_dificultad = fuente.render(dificultad, True, (0, 0, 0))
+    if rect_dificultad.collidepoint(pygame.mouse.get_pos()):
+        texto_dificultad = fuente.render(dificultad, True, (195, 253, 39))
+    pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_dificultad, (x + 15, y + 10))
 
     return rect_dificultad
@@ -44,12 +56,16 @@ def dibujar_boton_dificultad(pantalla, dificultad):
 def dibujar_boton_salir(pantalla):
     x = 290
     y = 410
-    ancho = 125
-    alto = 80
+    ancho = 100
+    alto = 55
 
     rect_salir = pygame.draw.rect(pantalla, (255, 255, 255), (x, y, ancho, alto))
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
+    sombra = fuente.render("Salir", True, (0, 0, 0))
     texto_salir = fuente.render("Salir", True, (0, 0, 0))
+    if rect_salir.collidepoint(pygame.mouse.get_pos()):
+        texto_salir = fuente.render("Salir", True, (255, 233, 53))
+    pantalla.blit(sombra, (x + 18, y + 12))
     pantalla.blit(texto_salir, (x + 15, y + 10))
 
     return rect_salir
@@ -75,11 +91,11 @@ def dibujar_boton_nombre(pantalla, nombre_jugador):
     ancho = 250
     alto = 30
 
-    # Dibujar la caja de texto
-    rect_nombre = pygame.draw.rect(pantalla, (0, 0, 0),(x, y, ancho, alto))  # Fondo caja nombre
+
+    rect_nombre = pygame.draw.rect(pantalla, (0, 0, 0),(x, y, ancho, alto))  # Caja nombre
     fuente = pygame.font.SysFont("Arial", 40, bold=True)
     texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0))
-    fuente_etiqueta = pygame.font.SysFont("Arial", 30, bold=True)
+    fuente_etiqueta = pygame.font.SysFont("Arial", 25, bold=True)
     etiqueta = fuente_etiqueta.render("Nombre: ", True, (0, 0, 0))
     pantalla.blit(texto_nombre, (x + 5, y + 5))  # Texto dentro de la caja
     pantalla.blit(etiqueta, (10, 560))
@@ -89,62 +105,60 @@ def dibujar_boton_nombre(pantalla, nombre_jugador):
 
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_reiniciar(pantalla):
-    imagen_reiniciar = pygame.image.load("SUDOKU/imagenes/reiniciar.jpg")
-    imagen_reinciar = pygame.transform.scale(imagen_reiniciar, (70, 70))
     
-    x = 10
-    y = 540
+    x = 662
+    y = 290
+    ancho = 120
+    alto = 40
     
-    rect_volver = pygame.Rect(x, y, 50, 50)
-    pantalla.blit(imagen_reinciar, (x, y))
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    rect_reiniciar = pygame.draw.rect(pantalla, (152, 166, 186), (x, y, ancho, alto), border_radius= 20)
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_reiniciar = fuente.render("Reiniciar", True, (62, 99, 179))
+    pantalla.blit(texto_reiniciar, (x + 15, y + 5))
     
-    return rect_volver
-
+    return rect_reiniciar
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_pausa(pantalla):
-    imagen_reiniciar = pygame.image.load("SUDOKU/imagenes/pausa.jpg")
-    imagen_reinciar = pygame.transform.scale(imagen_reiniciar, (50, 50))
+
+    x = 12
+    y = 290
+    ancho = 120
+    alto = 40
     
-    x = 100
-    y = 540
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    rect_pausa = pygame.draw.rect(pantalla, (152, 166, 186), (x, y, ancho, alto), border_radius= 20) 
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_pausa = fuente.render("Pausa", True, (62, 99, 179))
+    pantalla.blit(texto_pausa, (x + 28, y + 5))
     
-    rect_volver = pygame.Rect(x, y, 50, 50)
-    pantalla.blit(imagen_reinciar, (x, y))
-    
-    return rect_volver
+    return rect_pausa
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_reanudar(pantalla):
-    imagen_reiniciar = pygame.image.load("SUDOKU/imagenes/reanudar.jpg")
-    imagen_reinciar = pygame.transform.scale(imagen_reiniciar, (50, 50))
-    
-    x = 200
-    y = 540
-    
-    rect_volver = pygame.Rect(x, y, 50, 50)
-    pantalla.blit(imagen_reinciar, (x, y))
-    
-    return rect_volver
-
-
-#--------------------------------------------------------------------------------------------------------------
-def dibujar_errores(pantalla):
-
-    x = 475
+def dibujar_errores(pantalla, cant_errores):
+    x = 495
     y = 30
 
-    # Dibujar la caja de texto
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
-    errores = fuente.render("Errores: ", True, (50, 90, 175))
-    pantalla.blit(errores, (x + 5, y + 5))  # Texto dentro de la caja
+    errores_texto = fuente.render("Errores:", True, (152, 166, 186))  
+    pantalla.blit(errores_texto, (x + 5, y + 5))
+    errores_valor = fuente.render((cant_errores), True, (62, 99, 179))  
+    pantalla.blit(errores_valor, (x + 90, y + 5)) 
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_tiempo(pantalla):
+def dibujar_tiempo(pantalla, tiempo_inicio):
 
-    x = 150
-    y = 30
+    tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000 
+    minutos = tiempo_transcurrido // 60  # Minutos
+    segundos = tiempo_transcurrido % 60  # Segundos restantes
 
-    # Dibujar la caja de texto
+    x = 170
+    y = 34
+
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
-    errores = fuente.render("Tiempo: ", True, (50, 90, 175))
-    pantalla.blit(errores, (x + 5, y + 5))  # Texto dentro de la caja
+    tiempo_texto = fuente.render("Tiempo:", True, (152, 166, 186))  
+    pantalla.blit(tiempo_texto, (x, y))  
+    tiempo_valor = fuente.render(f"{minutos:02}:{segundos:02}", True, (62, 99, 179)) 
+    pantalla.blit(tiempo_valor, (x + 75, y))  
+
+

@@ -10,7 +10,10 @@ dimension_pantalla = (ancho_pantalla, largo_pantalla)
 img_fondo = pygame.image.load("SUDOKU/imagenes/marco.jpg")
 img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
 
-matriz_sudoku = generar_tablero_sudoku(9, 9, 0, 0, 8)
+matriz_sudoku = inicializar_tablero_9x9(9, 9, 0)
+posibles_numeros = lista_posibles_numeros()
+resolver_sudoku(matriz_sudoku, posibles_numeros)
+ocultar_datos_matriz_segun_dificultad(matriz_sudoku, "facil")
 
 # Creación de una pantalla
 pantalla = pygame.display.set_mode(dimension_pantalla)
@@ -21,7 +24,7 @@ def dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores):
     dibujar_boton_reiniciar(pantalla)
     dibujar_boton_pausa(pantalla)
     dibujar_errores(pantalla, cant_errores)
-    dibujar_tiempo(pantalla, tiempo_inicio)
+    dibujar_tiempo(pantalla, tiempo_inicio, 170, 34)
     dibujar_matriz_sudoku(pantalla, matriz_sudoku)
     pygame.mixer.music.stop()
 

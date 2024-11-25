@@ -148,14 +148,11 @@ def dibujar_errores(pantalla, cant_errores):
     pantalla.blit(errores_valor, (x + 90, y + 5)) 
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_tiempo(pantalla, tiempo_inicio):
+def dibujar_tiempo(pantalla, tiempo_inicio, x, y):
 
     tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000 
     minutos = tiempo_transcurrido // 60  # Minutos
     segundos = tiempo_transcurrido % 60  # Segundos restantes
-
-    x = 170
-    y = 34
 
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
     tiempo_texto_sombra = fuente.render("Tiempo:", True, (0, 0, 0))

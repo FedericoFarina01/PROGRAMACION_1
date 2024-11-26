@@ -299,3 +299,34 @@ def generar_sudoku(dificultad):
     resolver_sudoku(sudoku, lista_posibles_numeros())
     ocultar_datos_matriz_segun_dificultad(sudoku, dificultad)
     return sudoku
+
+# TRANSICIONES
+import pygame
+
+""" # Función para hacer un fade out (pantalla se oscurece)
+def fade_out(pantalla, velocidad=10):
+    fade_surface = pygame.Surface((pantalla.get_width(), pantalla.get_height()))
+    fade_surface.fill((0, 0, 0))  # Color negro
+    fade_surface.set_alpha(0)  # Comienza totalmente transparente
+    pantalla.blit(fade_surface, (0, 0))
+    pygame.display.update()
+
+    for alpha in range(0, 255, velocidad):
+        fade_surface.set_alpha(alpha)
+        pantalla.blit(fade_surface, (0, 0))
+        pygame.display.update()
+        pygame.time.delay(10)  # Controla la velocidad del fade
+
+# Función para hacer un fade in (pantalla se aclara)
+def fade_in(pantalla, velocidad=10):
+    pantalla = pygame.Surface((pantalla.get_width(), pantalla.get_height()))
+    pantalla.fill((0, 0, 0))  # Color negro
+    pantalla.set_alpha(255)  # Comienza totalmente opaco
+    pantalla.blit(pantalla, (0, 0))
+    pygame.display.update()
+
+    for alpha in range(255, 0, -velocidad):
+        pantalla.set_alpha(alpha)
+        pantalla.blit(pantalla, (0, 0))
+        pygame.display.update()
+        pygame.time.delay(10)  # Controla la velocidad del fade """

@@ -52,6 +52,7 @@ def dibujar_boton_dificultad(pantalla, dificultad):
     pantalla.blit(texto_dificultad, (x + 15, y + 10))
 
     return rect_dificultad
+    
 #----------------------------------------------------------------------------------
 def dibujar_boton_salir(pantalla):
     x = 290
@@ -135,7 +136,7 @@ def dibujar_boton_pausa(pantalla):
     return rect_pausa
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_errores(pantalla, cant_errores):
+def dibujar_errores(pantalla, cant_errores:int):
     x = 495
     y = 30
 
@@ -144,7 +145,7 @@ def dibujar_errores(pantalla, cant_errores):
     errores_texto = fuente.render("Errores:", True, (200, 143, 90))  
     pantalla.blit(errores_texto_sombra, (x + 6 , y + 6)) 
     pantalla.blit(errores_texto, (x + 5, y + 5))
-    errores_valor = fuente.render((cant_errores), True, (0, 0, 0))  
+    errores_valor = fuente.render(f"{cant_errores}", True, (0, 0, 0))  
     pantalla.blit(errores_valor, (x + 90, y + 5)) 
 
 #--------------------------------------------------------------------------------------------------------------

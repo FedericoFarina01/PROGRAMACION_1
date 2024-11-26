@@ -1,7 +1,7 @@
 import pygame
 from funciones import *
 from botones import *
-from pantallas.inicio import dibujar_pantalla_inicio
+from pantallas.inicio import dibujar_pantalla_inicio, cambiar_dificultad
 from pantallas.principal import dibujar_pantalla_principal
 from pantallas.puntajes import dibujar_pantalla_puntajes
 
@@ -35,7 +35,7 @@ pantalla_activa = "inicio"
 nombre_jugador = ""
 click_izq = pygame.MOUSEBUTTONDOWN
 dificultad = "Facil"
-cant_errores = "0"
+cant_errores = 0
 
 # Generar el Sudoku inicial
 sudoku_actual = generar_sudoku(dificultad)
@@ -56,12 +56,16 @@ while juego_corriendo:
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
                 if dibujar_boton_jugar(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     tiempo_inicio = pygame.time.get_ticks()
                     sudoku_actual = generar_sudoku(dificultad)  # Generar Sudoku al iniciar el juego
                     pantalla_activa = "principal"
+                    #fade_in(pantalla)
 
                 elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     pantalla_activa = "puntajes"
+                    #fade_in(pantalla)
 
                 elif dibujar_boton_salir(pantalla).collidepoint(cursor):
                     juego_corriendo = False
@@ -70,24 +74,24 @@ while juego_corriendo:
 
                 # Detectar clic en el botón de "Dificultad"
                 elif dibujar_boton_dificultad(pantalla, dificultad).collidepoint(cursor):
-                    if dificultad == "Facil":
-                        dificultad = "Medio"
-                    elif dificultad == "Medio":
-                        dificultad = "Dificil"
-                    elif dificultad == "Dificil":
-                        dificultad = "Facil"
+                    dificultad = cambiar_dificultad(dificultad)
 
             # Detectar clic en el botón "Volver" en las pantallas "principal" y "puntajes"
             elif pantalla_activa == "principal":
                 if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
-                    sudoku_actual = generar_sudoku(dificultad)
+                    sudoku_actual = generar_sudoku(dificultad) # Generar un Sudoku nuevo
+                    cant_errores = 0
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     pantalla_activa = "inicio"
+                    #fade_in(pantalla)
                     #pygame.mixer.music.play(-1)
 
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     pantalla_activa = "inicio"
+                    #fade_in(pantalla)
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":

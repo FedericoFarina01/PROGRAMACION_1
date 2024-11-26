@@ -37,5 +37,12 @@ def titulo_sudoku(pantalla):
     pantalla.blit(sombra_sudoku, (532, 140)) 
     pantalla.blit(texto_sudoku, (530, 138)) 
 
+def cambiar_dificultad(dificultad):
+    if dificultad == "Facil":
+        return "Medio"
+    elif dificultad == "Medio":
+        return "Dificil"
+    elif dificultad == "Dificil":
+        return "Facil"
 
 

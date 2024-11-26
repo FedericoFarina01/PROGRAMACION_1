@@ -159,7 +159,7 @@ def dibujar_tiempo(pantalla, tiempo_inicio, x, y):
     tiempo_texto = fuente.render("Tiempo:", True, (200, 143, 90))  
     pantalla.blit(tiempo_texto_sombra, (x + 1 , y + 1))  
     pantalla.blit(tiempo_texto, (x, y))  
-    tiempo_valor = fuente.render(f"{minutos:02}:{segundos:02}", True, (0, 0, 0)) 
-    pantalla.blit(tiempo_valor, (x + 75, y))  
+    tiempo = fuente.render(f"{minutos:02}:{segundos:02}", True, (0, 0, 0)) 
+    pantalla.blit(tiempo, (x + 75, y))  
 
-
+    return tiempo

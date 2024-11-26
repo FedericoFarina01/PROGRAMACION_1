@@ -13,10 +13,10 @@ ancho_pantalla = 800
 largo_pantalla = 600
 dimension_pantalla = (ancho_pantalla, largo_pantalla)
 
-# Creación de una pantalla
+# Crear pantalla
 pantalla = pygame.display.set_mode(dimension_pantalla)
 
-# Cambia el título del juego
+# Cambiar el título del juego
 pygame.display.set_caption("Sudoku")
 
 # Icono del juego
@@ -24,20 +24,17 @@ img_icono = pygame.image.load("SUDOKU/imagenes/icon_sudoku.png")
 pygame.display.set_icon(img_icono)
 
 # Música
-pygame.mixer.init()
+""" pygame.mixer.init()
 pygame.mixer.music.load("SUDOKU/musica/Vibe Mountain.mp3")
 pygame.mixer.music.set_volume(0.4)
-pygame.mixer.music.play(-1)
+pygame.mixer.music.play(-1) """
 
 # Variables
 juego_corriendo = True
 pantalla_activa = "inicio"
 nombre_jugador = ""
-
 click_izq = pygame.MOUSEBUTTONDOWN
-
 dificultad = "Facil"
-
 cant_errores = "0"
 
 # Generar el Sudoku inicial
@@ -71,7 +68,7 @@ while juego_corriendo:
                     pygame.quit()
                     quit()
 
-                # Detectar clic en el botón de dificultad
+                # Detectar clic en el botón de "Dificultad"
                 elif dibujar_boton_dificultad(pantalla, dificultad).collidepoint(cursor):
                     if dificultad == "Facil":
                         dificultad = "Medio"
@@ -80,11 +77,13 @@ while juego_corriendo:
                     elif dificultad == "Dificil":
                         dificultad = "Facil"
 
-            # Detectar clic en el botón "Volver" en las pantallas "principal" o "puntajes"
+            # Detectar clic en el botón "Volver" en las pantallas "principal" y "puntajes"
             elif pantalla_activa == "principal":
-                if dibujar_boton_volver(pantalla).collidepoint(cursor):
+                if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
+                    sudoku_actual = generar_sudoku(dificultad)
+                elif dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
-                    pygame.mixer.music.play(-1)
+                    #pygame.mixer.music.play(-1)
 
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):

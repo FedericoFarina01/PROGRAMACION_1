@@ -39,6 +39,7 @@ cant_errores = 0
 
 # Generar el Sudoku inicial
 sudoku_actual = generar_sudoku(dificultad)
+celda_actual = None
 
 while juego_corriendo:
     # Iterar sobre todos los eventos
@@ -78,14 +79,21 @@ while juego_corriendo:
 
             # Detectar clic en el botón "Volver" en las pantallas "principal" y "puntajes"
             elif pantalla_activa == "principal":
+                celda_actual = resaltar_celda(pantalla, celda_actual)
+
+
                 if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
+                    celda_actual = None
                     sudoku_actual = generar_sudoku(dificultad) # Generar un Sudoku nuevo
                     cant_errores = 0
+
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
                     #fade_out(pantalla)
+                    celda_actual = None
                     pantalla_activa = "inicio"
                     #fade_in(pantalla)
                     #pygame.mixer.music.play(-1)
+                
 
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
@@ -102,6 +110,6 @@ while juego_corriendo:
 
     elif pantalla_activa == "principal":
         dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores)
-        dibujar_matriz_sudoku(pantalla, sudoku_actual)
+        dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual)
 
     pygame.display.flip()  # Actualiza la pantalla

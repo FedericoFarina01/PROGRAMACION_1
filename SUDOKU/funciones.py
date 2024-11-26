@@ -1,4 +1,5 @@
 import random
+import pygame
 
 def mostrar_matriz_sudoku(matriz: list) -> None:
     """
@@ -223,16 +224,14 @@ def ocultar_datos_matriz_segun_dificultad(matriz: list, dificultad: str) -> list
     Returns:
         list: Matriz modificada con celdas ocultas.
     """
-    # Solicitar la dificultad
-    dificultades = ("facil", "intermedio", "dificil") 
-
     total_celdas = 81
+    celdas_a_ocultar = 0
     # Determinamos cuántas celdas ocultar según la dificultad
-    if dificultad == "facil":
+    if dificultad == "Facil":
         celdas_a_ocultar = int(total_celdas * 0.20)  # 20% de las celdas = 16
-    elif dificultad == "intermedio":
-        celdas_a_ocultar = int(total_celdas * 0.40)  # 40% de las celdas = 32
-    elif dificultad == "dificil":
+    elif dificultad == "Medio":
+        celdas_a_ocultar = int(total_celdas * 0.40)  # 40% de las celdas = 34
+    elif dificultad == "Dificil":
         celdas_a_ocultar = int(total_celdas * 0.60)  # 60% de las celdas = 48
 
     # Generar todas las celdas del tablero
@@ -247,9 +246,56 @@ def ocultar_datos_matriz_segun_dificultad(matriz: list, dificultad: str) -> list
     return matriz
 
 #---------------------------------------------------------------------------------------------------------------------------------
+def dibujar_matriz_sudoku(pantalla, matriz):
+    """
+    Dibuja la matriz de Sudoku en la pantalla de Pygame.
+
+    Parámetros:
+        pantalla: La pantalla de Pygame donde se dibujará.
+        matriz: La matriz de Sudoku que se debe mostrar.
+    """
+    # Colores
+    color_linea = (0, 0, 0)
+    color_numeros= (0, 0, 0)  # Negro para los números
+    
+    # Coordenadas de inicio y tamaño de celdas
+    inicio_x = 150
+    inicio_y = 60
+    tamaño_celda = 55 # Cada celda será de 50x50 píxeles
+
+    # Dibujar la cuadrícula (líneas horizontales y verticales)
+    for fila in range(10):  # Dibujar 9 líneas más una extra para el borde
+        grosor = 3 if fila % 3 == 0 else 1  # Líneas más gruesas cada 3
+
+        pygame.draw.line(pantalla, (color_linea), (inicio_x, inicio_y + fila * tamaño_celda), 
+                         (inicio_x + 9 * tamaño_celda, inicio_y + fila * tamaño_celda), 
+                         grosor)
+        
+        pygame.draw.line(pantalla, (color_linea), 
+                         (inicio_x + fila * tamaño_celda, inicio_y), 
+                         (inicio_x + fila * tamaño_celda, inicio_y + 9 * tamaño_celda), 
+                         grosor)
+
+    # Dibujar los números en la cuadrícula
+    fuente = pygame.font.SysFont("Arial", 30)
+    for i in range(len(matriz)):
+        for j in range(len(matriz[i])):
+            numeros = fuente.render(str(matriz[i][j]), True, color_numeros)
+            x = inicio_x + j * tamaño_celda + tamaño_celda // 3
+            y = inicio_y + i * tamaño_celda + tamaño_celda // 4
+            pantalla.blit(numeros, (x, y))
+
 
 tablero = inicializar_tablero_9x9()
 posibles_numeros = lista_posibles_numeros()
 resolver_sudoku(tablero, posibles_numeros)
 tablero = ocultar_datos_matriz_segun_dificultad(tablero, "facil")
 mostrar_matriz_sudoku(tablero)
+
+
+
+def generar_sudoku(dificultad):
+    sudoku = inicializar_tablero_9x9(9, 9, 0)
+    resolver_sudoku(sudoku, lista_posibles_numeros())
+    ocultar_datos_matriz_segun_dificultad(sudoku, dificultad)
+    return sudoku

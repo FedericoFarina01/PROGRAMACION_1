@@ -258,11 +258,13 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
     color_linea = (0, 0, 0)
     color_numeros= (0, 0, 0)  # Negro para los números
     color_celda_actual = (255, 255, 255)
-    
+
     # Coordenadas de inicio y tamaño de celdas
     inicio_x = 150
     inicio_y = 60
     tamaño_celda = 55 # Cada celda será de 50x50 píxeles
+
+    rect_tablero = pygame.Rect(inicio_x, inicio_y, 9 * tamaño_celda, 9 * tamaño_celda)
 
     # Dibujar la cuadrícula (líneas horizontales y verticales)
     for fila in range(10):  # Dibujar 9 líneas más una extra para el borde
@@ -291,14 +293,17 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
                                  (inicio_x + columna * tamaño_celda, inicio_y + fila * tamaño_celda, tamaño_celda, tamaño_celda))
             pantalla.blit(numeros, (x, y))
 
+    return rect_tablero
 #------------------------------------------------------------------------------------------
-def resaltar_celda(pantalla, celda_actual):
+def resaltar_celda(pantalla, celda_actual,sudoku_actual):
     """
     Dibuja el Sudoku y resalta la celda clickeada en blanco.
     """
     inicio_x = 150 
     inicio_y = 60  
     tamaño_celda = 55 
+
+    rect_tablero = pygame.Rect(inicio_x, inicio_y, 9 * tamaño_celda, 9 * tamaño_celda)
 
     # Recorrer celdas
     for fila in range(9):
@@ -307,26 +312,18 @@ def resaltar_celda(pantalla, celda_actual):
             rect_celda = pygame.Rect(inicio_x + columna * tamaño_celda, inicio_y + fila * tamaño_celda, tamaño_celda, tamaño_celda)
 
             # Detectar si el mouse está dentro de la celda
-            if pygame.MOUSEBUTTONDOWN:
-                if rect_celda.collidepoint(pygame.mouse.get_pos()):
-                    celda_actual = (fila, columna)  
-                    pygame.draw.rect(pantalla, (255, 255, 255), rect_celda)  # Resaltar la celda 
+           
+            if rect_celda.collidepoint(pygame.mouse.get_pos()):
+                celda_actual = (fila, columna)  
+                pygame.draw.rect(pantalla, (255, 255, 255), rect_celda)  # Resaltar la celda
+            elif not rect_tablero.collidepoint(pygame.mouse.get_pos()):
+                celda_actual = None
 
-    return celda_actual
+    if celda_actual != None and sudoku_actual[celda_actual[0]][celda_actual[1]] != ' ':
+        celda_actual = None
+        
 
-
-
-
-
-
-
-#------------------------------------------------------------------------------------------
-
-""" tablero = inicializar_tablero_9x9()
-posibles_numeros = lista_posibles_numeros()
-resolver_sudoku(tablero, posibles_numeros)
-tablero = ocultar_datos_matriz_segun_dificultad(tablero, "facil")
-mostrar_matriz_sudoku(tablero) """
+    return celda_actual 
 
 #--------------------------------------------------------------------------------------------
 
@@ -336,154 +333,3 @@ def generar_sudoku(dificultad):
     ocultar_datos_matriz_segun_dificultad(sudoku, dificultad)
     return sudoku
 #--------------------------------------------------------------------------------------------
-
-# TRANSICIONES
-import pygame
-
-""" # Función para hacer un fade out (pantalla se oscurece)
-def fade_out(pantalla, velocidad=10):
-    fade_surface = pygame.Surface((pantalla.get_width(), pantalla.get_height()))
-    fade_surface.fill((0, 0, 0))  # Color negro
-    fade_surface.set_alpha(0)  # Comienza totalmente transparente
-    pantalla.blit(fade_surface, (0, 0))
-    pygame.display.update()
-
-    for alpha in range(0, 255, velocidad):
-        fade_surface.set_alpha(alpha)
-        pantalla.blit(fade_surface, (0, 0))
-        pygame.display.update()
-        pygame.time.delay(10)  # Controla la velocidad del fade
-
-# Función para hacer un fade in (pantalla se aclara)
-def fade_in(pantalla, velocidad=10):
-    pantalla = pygame.Surface((pantalla.get_width(), pantalla.get_height()))
-    pantalla.fill((0, 0, 0))  # Color negro
-    pantalla.set_alpha(255)  # Comienza totalmente opaco
-    pantalla.blit(pantalla, (0, 0))
-    pygame.display.update()
-
-    for alpha in range(255, 0, -velocidad):
-        pantalla.set_alpha(alpha)
-        pantalla.blit(pantalla, (0, 0))
-        pygame.display.update()
-        pygame.time.delay(10)  # Controla la velocidad del fade """
-
-#----------------------------------------------------------------------------------------
-
-# FUNCIONAMIENTO DEL SUDOKU
-
-def jugar_sudoku(matriz, fila, columna, numero, celdas_ocultas):
-    """
-    Permite al usuario ingresar un número en la celda seleccionada del Sudoku.
-
-    Parámetros:
-        matriz (list): La matriz del Sudoku (9x9) que se desea modificar.
-        fila (int): Fila de la celda seleccionada.
-        columna (int): Columna de la celda seleccionada.
-        numero (int): Número a ingresar en la celda seleccionada.
-        celdas_ocultas (set): Conjunto de celdas que están ocultas y no se pueden modificar.
-
-    Retorna:
-        tuple: (matriz, errores) - La matriz actualizada y el número de errores.
-    """
-    if not es_celda_modificable(fila, columna, celdas_ocultas):
-        print("No puedes modificar esta celda.")
-        return matriz, 0
-
-    if not ingreso_del_usuario_valido(numero):
-        print("Número inválido. Debe ser entre 1 y 9.")
-        return matriz, 0
-
-    return colocar_numero(matriz, fila, columna, numero)
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-def es_celda_modificable(valor_en_fila, valor_en_columna, celdas_ocultas):
-    """
-    Verifica si la celda seleccionada se puede modificar.
-
-    Parámetros:
-        fila (int): Fila de la celda seleccionada.
-        columna (int): Columna de la celda seleccionada.
-        celdas_ocultas (set): Conjunto de celdas que están ocultas y no se pueden modificar.
-
-    Retorna:
-        bool: True si la celda es modificable, False en caso contrario.
-    """
-    celda_modificable = False
-    if (valor_en_fila, valor_en_columna) not in celdas_ocultas:
-        celda_modificable = True
-    return celda_modificable
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-def ingreso_del_usuario_valido(numero_ingresado:int, bandera_numero_valido:bool) -> bool:
-    """
-    Verifica si el número ingresado es válido (entre 1 y 9).
-
-    Parámetros:
-        numero (int): El número que se desea verificar.
-
-    Retorna:
-        bool: True si el número es válido, False en caso contrario.
-    """
-    bandera_numero_valido = True
-    if numero_ingresado not in (posibles_numeros):
-        bandera_numero_valido = False
-    return bandera_numero_valido
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-def colocar_numero(matriz, fila, columna, numero):
-    """
-    Intenta colocar un número en la celda especificada.
-
-    Parámetros:
-        matriz (list): La matriz del Sudoku.
-        fila (int): Índice de la fila donde se desea colocar el número.
-        columna (int): Índice de la columna donde se desea colocar el número.
-        numero (int): El número a colocar.
-
-    Retorna:
-        tuple: (matriz, errores) - La matriz actualizada y el número de errores.
-    """
-    if es_numero_valido(matriz, numero, fila, columna):
-        matriz[fila][columna] = numero
-    return matriz
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-def contar_errores(matriz, numero, fila, columna) -> int:
-    contador = 0
-    if es_numero_valido(matriz, numero, fila, columna) == False:
-        contador += 1
-    return contador
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-# import pygame
-
-# def manejar_input_sudoku(matriz, fila_seleccionada, columna_seleccionada):
-#     """
-#     Maneja la entrada de números en una celda vacía del Sudoku.
-
-#     Parámetros:
-#         matriz (list): La matriz del Sudoku (9x9).
-#         fila_seleccionada (int): Fila de la celda seleccionada.
-#         columna_seleccionada (int): Columna de la celda seleccionada.
-
-#     Retorna:
-#         None: Esta función no retorna ningún valor.
-#     """
-#     for event in pygame.event.get():
-#         if event.type == pygame.KEYDOWN:
-#             if event.key in range(pygame.K_1, pygame.K_10):  # Verifica si la tecla es un número del 1 al 9
-#                 numero = event.key - pygame.K_0  # Convierte la tecla a su valor numérico
-#                 if matriz[fila_seleccionada][columna_seleccionada] == " ":  # Verifica si la celda está vacía
-#                     if es_numero_valido(matriz, numero, fila_seleccionada, columna_seleccionada):
-#                         matriz[fila_seleccionada][columna_seleccionada] = numero  # Coloca el número en la celda
-#             elif event.key == pygame.K_ESCAPE:
-#                 print("Entrada cancelada.")
-#             else:
-#                 event.key == pygame.K_DELETE:
-#                 matriz[fila_seleccionada][columna_seleccionada] = " "

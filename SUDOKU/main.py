@@ -79,8 +79,7 @@ while juego_corriendo:
 
             # Detectar clic en el botón "Volver" en las pantallas "principal" y "puntajes"
             elif pantalla_activa == "principal":
-                celda_actual = resaltar_celda(pantalla, celda_actual)
-
+                celda_actual = resaltar_celda(pantalla, celda_actual,sudoku_actual)
 
                 if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
                     celda_actual = None
@@ -100,6 +99,20 @@ while juego_corriendo:
                     #fade_out(pantalla)
                     pantalla_activa = "inicio"
                     #fade_in(pantalla)
+        if evento.type == pygame.KEYDOWN:
+            tecla_presionada = pygame.key.name(evento.key)
+            print(tecla_presionada)
+            
+            if tecla_presionada.isnumeric() and celda_actual != None:
+                print(tecla_presionada)
+                sudoku_actual[celda_actual[0]][celda_actual[1]] = int(tecla_presionada)
+                celda_actual = None
+                
+            if tecla_presionada == "backspace":
+                celda_actual = None
+            
+            
+
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":
@@ -110,6 +123,8 @@ while juego_corriendo:
 
     elif pantalla_activa == "principal":
         dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores)
-        dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual)
+        rectangulo_sudoku = dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual)
+        
+        
 
     pygame.display.flip()  # Actualiza la pantalla

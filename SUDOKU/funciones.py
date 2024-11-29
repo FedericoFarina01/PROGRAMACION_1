@@ -33,7 +33,7 @@ def inicializar_tablero_9x9(cantidad_filas: int = 9, cantidad_columnas: int = 9,
         valor_inicial (int): Valor inicial para las celdas de la matriz (por defecto es 0).
     
     Retorna:
-        list: Matriz de 9x9 inicializada con los valores especificados.
+        matriz (list): Matriz de 9x9 inicializada con los valores especificados.
     """
     matriz = []
     for _ in range(cantidad_filas):
@@ -53,8 +53,8 @@ def verificar_numero_repetido_en_fila(matriz: list, numero: int, fila: int) -> b
         fila (int): Indice de la fila donde se desea verificar.
     
     Retorna:
-        bool: retorna True si el numero esta repetido en la fila
-            - False en caso contrario.
+        resultado (bool): - Retorna True si el numero esta repetido en la fila
+                          - False en caso contrario.
     """
     
     resultado = False
@@ -76,8 +76,8 @@ def verificar_numero_repetido_en_columna(matriz: list, numero: int, columna: int
         columna (int): Indice de la columna donde se desea verificar.
     
     Retorna:
-        bool: True si el número está repetido en la columna
-            - False en caso contrario.
+        resultado: - True si el número está repetido en la columna
+                   - False en caso contrario.
     """
     
     resultado = False
@@ -96,7 +96,7 @@ def obtener_posicion_inicial_de_fila(fila:int) -> int:
         fila (int): Indice de las filas.
     
     Retorna:
-        int: Posicion inicial de las filas.
+        posicion_de_fila (int): Posicion inicial de las filas.
     """
     posicion_de_fila = 0
     if fila < 3:
@@ -116,7 +116,7 @@ def obtener_posicion_inicial_de_columna(columna:int) -> int:
         fila (int): Indice de las columnas.
     
     Retorna:
-        int: Posicion inicial de las columnas.
+        posicion_de_columna(int): Posicion inicial de las columnas.
     """
     posicion_de_columna = 0
     if columna < 3:
@@ -140,8 +140,8 @@ def verificar_numero_repetido_en_submatriz(matriz:list, numero:int, posicion_ini
         posicion_inicial_en_columna (int): Indice de la columna donde se desea verificar.
     
     Retorna:
-        bool: True si el número esta repetido en la submatriz
-            - False en caso contrario.
+       bandera_numero_repetido (bool): - True si el número esta repetido en la submatriz
+                                       - False en caso contrario.
     """
     bandera_numero_repetido = False
     for indices_fila in range(posicion_inicial_en_fila, posicion_inicial_en_fila + 3):
@@ -164,7 +164,7 @@ def lista_posibles_numeros(desde: int = 1, hasta: int = 9) -> list:
         hasta (int): numero minimo (9).
     
     Retorna:
-        list: Lista de enteros validos.
+         posibles_numeros (list): Lista de enteros validos.
     """
     posibles_numeros = list(range(desde, hasta + 1))
     return posibles_numeros
@@ -182,7 +182,7 @@ def es_numero_valido(matriz: list, numero: int, fila: int, columna: int) -> bool
         columna (int): Indice de la columna donde se desea verificar.
     
     Retorna:
-        bool: True si el número es valido
+        numero_valido (bool): True si el número es valido
             - False en caso contrario.
     """
     numero_valido = False
@@ -204,8 +204,8 @@ def resolver_sudoku(matriz: list, posibles_numeros: list) -> bool:
         posibles_numeros (list): Lista de enteros validos.
     
     Retorna:
-        bool: True si la solucion fue encontrada (tablero resuelto)
-            - False en caso contrario.
+        solucion_encontrada (bool): - True si la solucion fue encontrada (tablero resuelto)
+                                    - False en caso contrario.
     """
     solucion_encontrada = True
     for fila in range(9):
@@ -262,7 +262,7 @@ def generar_celdas(tamaño_del_tablero: int = 9) -> list:
         tamaño_del_tablero (int): Tamaño del tablero (9x9).
         
     Retorna:
-        list: Lista de tuplas con las posiciones del tablero.
+        celdas (list): Lista de tuplas con las posiciones del tablero.
     """
     celdas = []
     for fila in range(tamaño_del_tablero):
@@ -281,7 +281,7 @@ def seleccionar_celdas_ocultas(celdas, celdas_a_ocultar):
         celdas_a_ocultar (int): Número de celdas a ocultar.
         
     Retorna:
-        list: Lista de celdas seleccionadas para ocultar.
+        celdas_a_ocultar (list): Lista de celdas seleccionadas para ocultar.
     """
     celdas_a_ocultar = random.sample(celdas, celdas_a_ocultar)
     return celdas_a_ocultar
@@ -297,7 +297,7 @@ def ocultar_datos_matriz_segun_dificultad(matriz: list, dificultad: str) -> list
         dificultad (str): Nivel de dificultad ("Facil", "Medio", "Dificil") segun desee el usuario.
         
     Retorna:
-        list: Matriz modificada con celdas ocultas.
+        matriz (list): Matriz modificada con celdas ocultas.
     """
     total_celdas = 81
     celdas_a_ocultar = 0
@@ -327,21 +327,21 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
         celda_actual: La celda actual en la que se encuentra el usuario.
 
     Retorna:
-        None: Esta funcion no retorna ningun valor. 
+        rect_tablero : Retorna el rectangulo del tablero 
     """
-    # Colores
+    
     color_linea = (0, 0, 0)
-    color_numeros= (0, 0, 0)  # Negro para los números
+    color_numeros= (0, 0, 0)  
     color_celda_actual = (255, 255, 255)
 
     # Coordenadas de inicio y tamaño de celdas
     inicio_x = 150
     inicio_y = 60
-    tamaño_celda = 55 # Cada celda será de 50x50 píxeles
+    tamaño_celda = 55 
 
     rect_tablero = pygame.Rect(inicio_x, inicio_y, 9 * tamaño_celda, 9 * tamaño_celda)
 
-    # Dibujar la cuadrícula (líneas horizontales y verticales)
+    # Líneas horizontales y verticales
     for fila in range(10):  # Dibujar 9 líneas más una extra para el borde
         grosor = 3 if fila % 3 == 0 else 1  # Líneas más gruesas cada 3
 
@@ -354,7 +354,7 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
                          (inicio_x + fila * tamaño_celda, inicio_y + 9 * tamaño_celda), 
                         grosor)
 
-    # Dibujar los números en la cuadrícula
+    # Dibujar los números 
     fuente = pygame.font.SysFont("Arial", 30)
     for fila in range(len(matriz)):
         for columna in range(len(matriz[fila])):
@@ -410,7 +410,7 @@ def resaltar_celda(pantalla, celda_actual, sudoku_actual):
 
 #--------------------------------------------------------------------------------------------
 
-def matriz_resolucion():
+def matriz_resolucion() -> list:
     """
     Genera una matriz de Sudoku resuelta y la devuelve en su totalidad
     
@@ -418,7 +418,7 @@ def matriz_resolucion():
         None
     
     Retorna:
-        tablero: La matriz de Sudoku resuelto
+        tablero (list): La matriz de Sudoku resuelto
     """
     tablero = inicializar_tablero_9x9()
     posibles_numeros = lista_posibles_numeros()
@@ -457,7 +457,7 @@ generar_sudoku(dificultad)
 
 #--------------------------------------------------------------------------------------------
 
-def comparar_tableros_sudoku(tablero_completo, tablero_oculto):
+def comparar_tableros_sudoku(tablero_completo, tablero_oculto) -> bool:
     """
     Compara el tablero completo (solucion) con el tablero oculto (segun dificultad).
     
@@ -466,8 +466,8 @@ def comparar_tableros_sudoku(tablero_completo, tablero_oculto):
         tablero_oculto: La matriz con el Sudoku según la dificultad (algunos valores pueden estar ocultos).
     
     Retorna:
-        bool: True si todos los valores del tablero oculto coinciden con los del tablero completo,
-            - False si no coinciden.
+        tablero_correcto (bool): - True si todos los valores del tablero oculto coinciden con los del tablero completo,
+                                 - False si no coinciden.
     """
     tablero_correcto = True  
     for fila in range(len(tablero_completo)):
@@ -480,9 +480,11 @@ def comparar_tableros_sudoku(tablero_completo, tablero_oculto):
 
 def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores):
     if (tecla_presionada.isnumeric()) and (celda_actual is not None):
-                    # Guarda el número ingresado en la celda correspondiente
+                    
+                    # Guardar el número ingresado en la celda seleccionada
                     sudoku_actual[celda_actual[0]][celda_actual[1]] = int(tecla_presionada)
-                    # Compara con el número en la matriz resuelta
+
+                    # Comparar con el número en la matriz resuelta
                     if (int(tecla_presionada) != sudoku_completo[celda_actual[0]][celda_actual[1]]):
                             cant_errores += 1
                     celda_actual = None

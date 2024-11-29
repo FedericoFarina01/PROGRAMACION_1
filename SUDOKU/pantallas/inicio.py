@@ -17,7 +17,7 @@ img_fondo = pygame.image.load("SUDOKU/imagenes/marco.jpg")
 img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
 
 
-def dibujar_pantalla_inicio(pantalla, dificultad, nombre_jugador):
+def dibujar_pantalla_inicio(pantalla, dificultad):
     pantalla.fill((255, 255, 255))  # Fondo blanco
     pantalla.blit(img_fondo, (-100, -100))
     pantalla.blit(img_pygame, (160, 0))
@@ -31,6 +31,12 @@ def dibujar_pantalla_inicio(pantalla, dificultad, nombre_jugador):
 
 
 def titulo_sudoku(pantalla):
+    """
+    Dibuja el titulo del juego en pantalla
+
+    Parametros:
+        pantalla: pantalla - display
+    """
     fuente = pygame.font.SysFont("Arial", 30, bold=True)
     sombra_sudoku = fuente.render("S_U_D_O_K_U:", True, (0, 0, 0))
     texto_sudoku = fuente.render("S_U_D_O_K_U:", True, (0, 0, 0))
@@ -38,6 +44,12 @@ def titulo_sudoku(pantalla):
     pantalla.blit(texto_sudoku, (530, 138)) 
 
 def cambiar_dificultad(dificultad):
+    """
+    Cambia la dificultad del juego segun la opcion seleccionada
+
+    Parametros:
+        difdicultad: Indica la dificultad del juego que definira la cantidad de celdas a ocultar
+    """
     if dificultad == "Facil":
         return "Medio"
     elif dificultad == "Medio":

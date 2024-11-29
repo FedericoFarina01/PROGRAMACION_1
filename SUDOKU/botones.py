@@ -121,18 +121,15 @@ def dibujar_boton_reiniciar(pantalla):
     return rect_reiniciar
 #--------------------------------------------------------------------------------------------------------------
 def dibujar_boton_pausa(pantalla):
-
     x = 12
     y = 290
     ancho = 120
     alto = 40
-    
     pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
     rect_pausa = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
     fuente = pygame.font.SysFont("Arial", 25, bold=True)
     texto_pausa = fuente.render("Pausa", True, (0, 0, 0))
     pantalla.blit(texto_pausa, (x + 28, y + 5))
-    
     return rect_pausa
 
 #--------------------------------------------------------------------------------------------------------------
@@ -149,6 +146,7 @@ def dibujar_errores(pantalla, cant_errores:int):
     pantalla.blit(errores_valor, (x + 90, y + 5)) 
 
 #--------------------------------------------------------------------------------------------------------------
+
 def dibujar_tiempo(pantalla, tiempo_inicio, x, y):
 
     tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000 
@@ -164,3 +162,23 @@ def dibujar_tiempo(pantalla, tiempo_inicio, x, y):
     pantalla.blit(tiempo, (x + 75, y))  
 
     return tiempo
+
+#--------------------------------------------------------------------------------------------------------------
+
+def dibujar_boton_reanudar(pantalla):
+    """
+    """
+    x = 300
+    y = 400
+    ancho = 120
+    alto = 40
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    rect_reanudar = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_reanudar = fuente.render("Reanudar", True, (0, 0, 0))
+    pantalla.blit(texto_reanudar, (x + 20, y + 5))
+    
+    return rect_reanudar
+#--------------------------------------------------------------------------------------------------------------
+
+#--------------------------------------------------------------------------------------------------------------

@@ -345,14 +345,11 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
     for fila in range(10):  # Dibujar 9 líneas más una extra para el borde
         grosor = 3 if fila % 3 == 0 else 1  # Líneas más gruesas cada 3
 
-        pygame.draw.line(pantalla, (color_linea), (inicio_x, inicio_y + fila * tamaño_celda), 
-                         (inicio_x + 9 * tamaño_celda, inicio_y + fila * tamaño_celda), 
-                        grosor)
+        pygame.draw.line(pantalla, (color_linea), (inicio_x, inicio_y + fila * tamaño_celda), # Dibujar lineas horizontales
+                         (inicio_x + 9 * tamaño_celda, inicio_y + fila * tamaño_celda), grosor)
         
-        pygame.draw.line(pantalla, (color_linea), 
-                         (inicio_x + fila * tamaño_celda, inicio_y), 
-                         (inicio_x + fila * tamaño_celda, inicio_y + 9 * tamaño_celda), 
-                        grosor)
+        pygame.draw.line(pantalla, (color_linea), (inicio_x + fila * tamaño_celda, inicio_y), # Dibujar lineas verticales
+                         (inicio_x + fila * tamaño_celda, inicio_y + 9 * tamaño_celda), grosor)
 
     # Dibujar los números 
     fuente = pygame.font.SysFont("Arial", 30)
@@ -372,38 +369,43 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual):
 
 #------------------------------------------------------------------------------------------
 
-def resaltar_celda(pantalla, celda_actual, sudoku_actual):
+def resaltar_celda(pantalla, celda_actual, sudoku_celdas):
     """
-    Dibuja el Sudoku y resalta la celda clickeada en blanco.
+    Dibuja el Sudoku y resalta la celda seleccionada o donde está el mouse.
 
-    Parametros:
-        pantalla: La pantalla de Pygame donde se dibujara.
-        celda_actual: La celda actual en la que se encuentra el usuario.
+    Parámetros:
+        pantalla: La pantalla de Pygame donde se dibujará.
+        celda_actual: La celda actualmente seleccionada por el usuario (par ordenado de coordenadas).
+        sudoku_celdas: Matriz de posiciones generada por la función `sudoku_celdas`.
         sudoku_actual: La matriz de Sudoku actual.
 
     Retorna:
-        celda_actual: La celda actual en la que se encuentra el usuario.
+        celda_actual: La celda actual en la que se encuentra el usuario (o None si no se selecciona ninguna).
     """
-    inicio_x = 150 
-    inicio_y = 60  
-    tamaño_celda = 55 
-    rect_tablero = pygame.Rect(inicio_x, inicio_y, 9 * tamaño_celda, 9 * tamaño_celda)
-    
-    # Recorrer celdas
-    for fila in range(9):
-        for columna in range(9):
-            # Calcular la superficie de la celda
-            rect_celda = pygame.Rect(inicio_x + columna * tamaño_celda, inicio_y + fila * tamaño_celda, tamaño_celda, tamaño_celda)
+    inicio_x = 150  # Coordenada inicial en X del tablero
+    inicio_y = 60   # Coordenada inicial en Y del tablero
+    tamaño_celda = 55  # Tamaño de cada celda en píxeles
+    rect_tablero = pygame.Rect(inicio_x, inicio_y, 9 * tamaño_celda, 9 * tamaño_celda)  # Dimensiones del tablero
+
+    # Recorrer cada posición en la matriz generada por sudoku_celdas
+    for fila_celdas in sudoku_celdas:
+        for fila, columna in fila_celdas:
+            # Calcular el rectángulo de la celda
+            rect_celda = pygame.Rect(
+                inicio_x + columna * tamaño_celda,
+                inicio_y + fila * tamaño_celda,
+                tamaño_celda,
+                tamaño_celda
+            )
             
             # Detectar si el mouse está dentro de la celda
             if rect_celda.collidepoint(pygame.mouse.get_pos()):
-                celda_actual = (fila, columna)  
-                pygame.draw.rect(pantalla, (255, 255, 255), rect_celda)  # Resaltar la celda
+                celda_actual = (fila, columna)  # Actualizar celda actual
+                pygame.draw.rect(pantalla, (255, 255, 255), rect_celda, 3)  # Resaltar la celda actual con un borde blanco
+            
+            # Si el mouse está fuera del tablero
             elif not rect_tablero.collidepoint(pygame.mouse.get_pos()):
                 celda_actual = None
-
-    if celda_actual is not None and sudoku_actual[celda_actual[0]][celda_actual[1]] != ' ':
-        celda_actual = None
     
     return celda_actual
 
@@ -477,22 +479,58 @@ def comparar_tableros_sudoku(tablero_completo, tablero_oculto) -> bool:
     return tablero_correcto
 
 #--------------------------------------------------------------------------------------------
+def sudoku_celdas(cantidad_filas: int = 9, cantidad_columnas: int = 9) -> list:
+    """
+    Inicializa una matriz de 9x9 donde cada celda contiene su respectivo par ordenado (fila, columna).
+    
+    Parámetros:
+        cantidad_filas (int): Cantidad de filas de la matriz (por defecto es 9).
+        cantidad_columnas (int): Cantidad de columnas de la matriz (por defecto es 9).
+    
+    Retorna:
+        matriz (list): Matriz de 9x9 con pares ordenados en cada celda.
+    """
+    matriz = [] 
+    for fila in range(cantidad_filas):
+        fila_celdas = []
+        for columna in range(cantidad_columnas):
+            fila_celdas.append((fila, columna))
+        matriz.append(fila_celdas)
+    return matriz
+
+
 
 def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores):
-    if (tecla_presionada.isnumeric()) and (celda_actual is not None):
-                    
-                    # Guardar el número ingresado en la celda seleccionada
-                    sudoku_actual[celda_actual[0]][celda_actual[1]] = int(tecla_presionada)
+    if celda_actual is not None:
+        fila, columna = celda_actual
+        
+        # Verificar que la celda esté vacía antes de permitir modificaciones
+        if sudoku_actual[fila][columna] == ' ' or type(sudoku_actual[fila][columna]) == str:
+            # Validar si la tecla es un número entre '1' y '9'
+            if tecla_presionada.isdigit() and 1 <= int(tecla_presionada) <= 9:
+                # Guardar el número ingresado en la celda seleccionada
+                sudoku_actual[fila][columna] = str(tecla_presionada)
+                
+                # Comparar con la matriz resuelta
+                if int(tecla_presionada) != sudoku_completo[fila][columna]:
+                    cant_errores += 1
 
-                    # Comparar con el número en la matriz resuelta
-                    if (int(tecla_presionada) != sudoku_completo[celda_actual[0]][celda_actual[1]]):
-                            cant_errores += 1
-                    celda_actual = None
+                # Deseleccionar la celda después de ingresar un número
+                celda_actual = None
+            else:
+                # Si la tecla no es válida, deseleccionar la celda
+                celda_actual = None
+        else:
+            # Si la celda ya tiene un valor, deseleccionar
+            celda_actual = None
 
-                # Si se presiona backspace, se deselecciona la celda
-                    if (tecla_presionada == "backspace"):
-                        celda_actual = None
+        # Manejar la tecla "backspace" para borrar la selección
+        if tecla_presionada == "backspace":
+            celda_actual = None
+        
+        # Manejar la tecla "escape" para cancelar la selección
+        elif tecla_presionada == "escape":
+            celda_actual = None
 
-                    # Si se presiona escape, también se deselecciona la celda
-                    if (celda_actual is not None) and (tecla_presionada == "escape"):
-                        celda_actual = None
+
+    

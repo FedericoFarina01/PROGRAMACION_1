@@ -79,7 +79,8 @@ while juego_corriendo:
 
             # Detectar clic en el botón "Volver" en las pantallas "principal" y "puntajes"
             elif pantalla_activa == "principal":
-                celda_actual = resaltar_celda(pantalla, celda_actual, sudoku_actual)
+                celda_actual = resaltar_celda(pantalla, celda_actual, sudoku_celdas())
+                print(celda_actual)
 
                 if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
                     celda_actual = None

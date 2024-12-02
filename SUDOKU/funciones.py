@@ -533,4 +533,15 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
             celda_actual = None
 
 
-    
+
+def calcular_puntaje(puntos_base, errores, tiempo, dificultad):
+    if dificultad == "Facil":
+        bonus_dificultad = 1.25
+    elif dificultad == "Intermedio": 
+        bonus_dificultad = 1.50
+    elif dificultad == "Dificil":
+        bonus_dificultad = 1.75
+
+    puntaje = (puntos_base - (errores * 50) - (tiempo * 10)) * bonus_dificultad
+
+    return puntaje

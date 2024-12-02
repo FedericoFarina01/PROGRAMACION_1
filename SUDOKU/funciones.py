@@ -1,6 +1,6 @@
 import random
 import pygame
-import copy 
+import copy
 
 def mostrar_matriz_sudoku(matriz: list) -> None:
     """
@@ -20,6 +20,7 @@ def mostrar_matriz_sudoku(matriz: list) -> None:
                 print("|", end=" ")
             print(matriz[fila][columna], end=" ")
         print()
+
 #---------------------------------------------------------------------------------------------------------------------------------
 
 def inicializar_tablero_9x9(cantidad_filas: int = 9, cantidad_columnas: int = 9, valor_inicial: int = 0) -> list:
@@ -53,7 +54,7 @@ def verificar_numero_repetido_en_fila(matriz: list, numero: int, fila: int) -> b
     
     Retorna:
         resultado (bool): - Retorna True si el numero esta repetido en la fila
-                        - False en caso contrario.
+                          - False en caso contrario.
     """
     
     resultado = False
@@ -76,7 +77,7 @@ def verificar_numero_repetido_en_columna(matriz: list, numero: int, columna: int
     
     Retorna:
         resultado: - True si el número está repetido en la columna
-                - False en caso contrario.
+                   - False en caso contrario.
     """
     
     resultado = False
@@ -139,8 +140,8 @@ def verificar_numero_repetido_en_submatriz(matriz:list, numero:int, posicion_ini
         posicion_inicial_en_columna (int): Indice de la columna donde se desea verificar.
     
     Retorna:
-    bandera_numero_repetido (bool): - True si el número esta repetido en la submatriz
-                                    - False en caso contrario.
+       bandera_numero_repetido (bool): - True si el número esta repetido en la submatriz
+                                       - False en caso contrario.
     """
     bandera_numero_repetido = False
     for indices_fila in range(posicion_inicial_en_fila, posicion_inicial_en_fila + 3):
@@ -163,7 +164,7 @@ def lista_posibles_numeros(desde: int = 1, hasta: int = 9) -> list:
         hasta (int): numero minimo (9).
     
     Retorna:
-        posibles_numeros (list): Lista de enteros validos.
+         posibles_numeros (list): Lista de enteros validos.
     """
     posibles_numeros = list(range(desde, hasta + 1))
     return posibles_numeros
@@ -250,28 +251,6 @@ def mostrar_tablero_oculto(matriz: list, celdas_ocultas: list, caracter: str) ->
             else:
                 print(matriz[fila][columna], end=" ")
         print()
-
-#---------------------------------------------------------------------------------------------------------------------------------
-
-def sudoku_celdas(cantidad_filas: int = 9, cantidad_columnas: int = 9) -> list:
-    """
-    Inicializa una matriz de 9x9 donde cada celda contiene su respectivo par ordenado (fila, columna).
-    
-    Parámetros:
-        cantidad_filas (int): Cantidad de filas de la matriz (por defecto es 9).
-        cantidad_columnas (int): Cantidad de columnas de la matriz (por defecto es 9).
-    
-    Retorna:
-        matriz (list): Matriz de 9x9 con pares ordenados en cada celda.
-    """
-    matriz = [] 
-    for fila in range(cantidad_filas):
-        fila_celdas = []
-        for columna in range(cantidad_columnas):
-            fila_celdas.append((fila, columna))
-        matriz.append(fila_celdas)
-    return matriz
-
 
 #---------------------------------------------------------------------------------------------------------------------------------
 
@@ -397,7 +376,7 @@ def resaltar_celda(pantalla, celda_actual, sudoku_celdas):
     Parámetros:
         pantalla: La pantalla de Pygame donde se dibujará.
         celda_actual: La celda actualmente seleccionada por el usuario (par ordenado de coordenadas).
-        sudoku_celdas: Matriz de posiciones generada por la función sudoku_celdas.
+        sudoku_celdas: Matriz de posiciones generada por la función `sudoku_celdas`.
         sudoku_actual: La matriz de Sudoku actual.
 
     Retorna:
@@ -423,7 +402,6 @@ def resaltar_celda(pantalla, celda_actual, sudoku_celdas):
             if rect_celda.collidepoint(pygame.mouse.get_pos()):
                 celda_actual = (fila, columna)  # Actualizar celda actual
                 pygame.draw.rect(pantalla, (255, 255, 255), rect_celda, 3)  # Resaltar la celda actual con un borde blanco
-                print(f" Celda actual: ({fila}, {columna})")
             
             # Si el mouse está fuera del tablero
             elif not rect_tablero.collidepoint(pygame.mouse.get_pos()):
@@ -436,109 +414,96 @@ def resaltar_celda(pantalla, celda_actual, sudoku_celdas):
 
 def matriz_resolucion() -> list:
     """
-    Genera una matriz de Sudoku resuelta y la devuelve en su totalidad.
+    Genera una matriz de Sudoku resuelta y la devuelve en su totalidad
+    
+    Parametros:
+        None
     
     Retorna:
-        tablero (list): La matriz de Sudoku resuelto.
+        tablero (list): La matriz de Sudoku resuelto
     """
     tablero = inicializar_tablero_9x9()
     posibles_numeros = lista_posibles_numeros()
     resolver_sudoku(tablero, posibles_numeros)
+    # Mostrar la matriz resuelta
+    print("\nMatriz resuelta (matriz_resolucion): \n")
     mostrar_matriz_sudoku(tablero)
     print("\n")
     return tablero
 
-def matriz_oculta(tablero_resuelto: list, dificultad: str) -> list:
+#--------------------------------------------------------------------------------------------
+
+def generar_sudoku(dificultad):
     """
-    Genera una copia de la matriz resuelta y oculta celdas según la dificultad especificada.
+    realiza una copia de la matriz resolucion y oculta celdas segun la dificultad especificada.
     
-    Parámetros:
-        tablero_resuelto (list): La matriz de Sudoku resuelta.
-        dificultad (str): La dificultad del juego ('Facil', 'Medio', 'Dificil').
+    Parametros:
+        dificultad: La dificultad del juego.
     
     Retorna:
-        tablero_oculto (list): La copia de la matriz resuelta con celdas ocultas.
+        sudoku_copia_celdas_ocultas: La copia de la matriz resuelta oculta.
     """
-    # Crear una copia de la matriz resuelta para trabajar sobre ella
-    tablero_oculto = copy.deepcopy(tablero_resuelto)
-    
-    # Llamar a la función que oculta celdas según la dificultad
-    ocultar_datos_matriz_segun_dificultad(tablero_oculto, dificultad)
-    mostrar_matriz_sudoku(tablero_oculto)
-    
-    return tablero_oculto
+    sudoku_completo = matriz_resolucion()
+    sudoku_copia_celdas_ocultas = copy.deepcopy(sudoku_completo)
+    ocultar_datos_matriz_segun_dificultad(sudoku_copia_celdas_ocultas, dificultad)
+    print("Matriz deepcopy (celdas ocultas): \n")
+    mostrar_matriz_sudoku(sudoku_copia_celdas_ocultas)
+    return sudoku_copia_celdas_ocultas
 
-def sudoku_modificable(sudoku_oculto) -> list:
+print("\n")
+
+# Ejemplo de llamada a la función generar_sudoku con una dificultad específica:
+dificultad = "Dificil"  # O la dificultad que necesites
+generar_sudoku(dificultad)
+
+
+#--------------------------------------------------------------------------------------------
+
+def comparar_tableros_sudoku(tablero_completo, tablero_oculto) -> bool:
     """
-    Genera una copia de la matriz oculta y la devuelve en su totalidad.
+    Compara el tablero completo (solucion) con el tablero oculto (segun dificultad).
     
-    Parámetros:
-        tablero_oculto (list): La matriz de Sudoku oculta.
+    Parmetros:
+        tablero_completo: La matriz con la solucion completa del Sudoku.
+        tablero_oculto: La matriz con el Sudoku según la dificultad (algunos valores pueden estar ocultos).
     
     Retorna:
-        tablero_modificable (list): La copia de la matriz oculta.
+        tablero_correcto (bool): - True si todos los valores del tablero oculto coinciden con los del tablero completo,
+                                 - False si no coinciden.
     """
-    sudoku_actual = []
-    for fila in sudoku_oculto:
-        nueva_fila = []
-        for valor in fila:
-            nueva_fila.append(valor)
-    sudoku_actual.append(nueva_fila)
-    return sudoku_actual
+    tablero_correcto = True  
+    for fila in range(len(tablero_completo)):
+        for columna in range(len(tablero_completo[fila])):
+            if tablero_oculto[fila][columna] != tablero_completo[fila][columna]:
+                tablero_correcto = False
+    return tablero_correcto
 
-# #--------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------
+def sudoku_celdas(cantidad_filas: int = 9, cantidad_columnas: int = 9) -> list:
+    """
+    Inicializa una matriz de 9x9 donde cada celda contiene su respectivo par ordenado (fila, columna).
+    
+    Parámetros:
+        cantidad_filas (int): Cantidad de filas de la matriz (por defecto es 9).
+        cantidad_columnas (int): Cantidad de columnas de la matriz (por defecto es 9).
+    
+    Retorna:
+        matriz (list): Matriz de 9x9 con pares ordenados en cada celda.
+    """
+    matriz = [] 
+    for fila in range(cantidad_filas):
+        fila_celdas = []
+        for columna in range(cantidad_columnas):
+            fila_celdas.append((fila, columna))
+        matriz.append(fila_celdas)
+    return matriz
 
-# def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores):
-#     # fuente = pygame.font.SysFont("Arial", 30, bold=True)
-#     # numero_correcto = fuente.render(str(tecla_presionada), True, (0, 0, 255))
-#     # numero_incorrecto = fuente.render(str(tecla_presionada), True, (255, 0, 0))
-#     # color_correcto = (0, 0, 255)
-#     # color_incorrecto = (255, 0, 0)
-#     # inicio_x = 150
-#     # inicio_y = 60
-#     # tamaño_celda = 55
 
-#     if celda_actual is not None:
-#         fila, columna = celda_actual
-        
-#         # # Calcular las coordenadas (x, y) para centrar el número en la celda
-#         # x = inicio_x + columna * tamaño_celda + tamaño_celda // 3
-#         # y = inicio_y + fila * tamaño_celda + tamaño_celda // 4
-
-#         # Verificar que la celda esté vacía antes de permitir modificaciones
-#         if sudoku_actual[fila][columna] == ' ' or type(sudoku_actual[fila][columna]) == str:
-#             # Validar si la tecla es un número entre '1' y '9'
-#             if tecla_presionada.isdigit() and (1 <= int(tecla_presionada) <= 9):
-#                 # Guardar el número ingresado en la celda seleccionada
-#                 sudoku_actual[fila][columna] = str(tecla_presionada)
-                
-#                 # Comparar con la matriz resuelta
-#                 if int(tecla_presionada) != sudoku_completo[fila][columna]:
-#                     cant_errores += 1
-#                     celda_actual = None
-#                     print(f"Valor ingresado: {tecla_presionada}, Valor correcto: {sudoku_completo[fila][columna]}")
-
-#             else:
-#                 # Si la tecla no es válida, deseleccionar la celda
-#                 celda_actual = None
-#         else:
-#             # Si la celda ya tiene un valor, deseleccionar
-#             celda_actual = None
-
-#         # Manejar la tecla "backspace" para borrar la selección
-#         if tecla_presionada == "backspace":
-#             celda_actual = None
-        
-#         # Manejar la tecla "escape" para cancelar la selección
-#         elif tecla_presionada == "escape":
-#             celda_actual = None
-
-#     return sudoku_actual, celda_actual, cant_errores
 
 def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores):
     if celda_actual is not None:
         fila, columna = celda_actual
-
+        
         # Verificar que la celda esté vacía antes de permitir modificaciones
         if sudoku_actual[fila][columna] == ' ' or type(sudoku_actual[fila][columna]) == str:
             # Validar si la tecla es un número entre '1' y '9'
@@ -549,9 +514,9 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
                 # Comparar con la matriz resuelta
                 if int(tecla_presionada) != sudoku_completo[fila][columna]:
                     cant_errores += 1
-                    celda_actual = None
-                    print(f"Valor ingresado: {tecla_presionada}, Valor correcto: {sudoku_completo[fila][columna]}")
 
+                # Deseleccionar la celda después de ingresar un número
+                celda_actual = None
             else:
                 # Si la tecla no es válida, deseleccionar la celda
                 celda_actual = None
@@ -567,37 +532,16 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
         elif tecla_presionada == "escape":
             celda_actual = None
 
-    return sudoku_actual, celda_actual, cant_errores
-
-#--------------------------------------------------------------------------------------------
-
-# def calcular_puntaje(cant_errores, puntaje_base, minutos, dificultad, bonus_dificultad):
-
-#     if dificultad == "Facil":
-#         bonus_dificultad = 1.25
-#     elif dificultad == "Medio":
-#         bonus_dificultad = 1.5
-#     elif dificultad == "Dificil":
-#         bonus_dificultad = 1.75    
-
-#     puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10) * bonus_dificultad)
-
-#     return puntaje_final
 
 
-# #--------------------------------------------------------------------------------------------
+def calcular_puntaje(puntos_base, errores, tiempo, dificultad):
+    if dificultad == "Facil":
+        bonus_dificultad = 1.25
+    elif dificultad == "Intermedio": 
+        bonus_dificultad = 1.50
+    elif dificultad == "Dificil":
+        bonus_dificultad = 1.75
 
-# def ganaste_sudoku(sudoku_actual, sudoku_completo):
-#     tablero_completado = True  # Asumimos que el tablero está completado
-#     for fila in range(9):
-#         for columna in range(9):
-#             # Si la celda está visible (no es " ") y no coincide con el valor completo
-#             if sudoku_actual[fila][columna] != " " and sudoku_actual[fila][columna] != sudoku_completo[fila][columna]:
-#                 tablero_completado = False
-#                 break
-#         if not tablero_completado:
-#             break
-#     return tablero_completado
+    puntaje = (puntos_base - (errores * 50) - (tiempo * 10)) * bonus_dificultad
 
-
-# #--------------------------------------------------------------------------------------------
+    return puntaje

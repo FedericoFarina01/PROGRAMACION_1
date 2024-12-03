@@ -512,6 +512,7 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
 
     return sudoku_actual, celda_actual, cant_errores
 
+<<<<<<< HEAD
 #--------------------------------------------------------------------------------------------
 
 def ganaste_sudoku(sudoku_actual, sudoku_completo):
@@ -566,3 +567,17 @@ def obtener_color_del_numero(matriz_original, matriz_modificable, fila, columna)
 #     puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10) * bonus_dificultad)
 
 #     return puntaje_final
+=======
+
+def calcular_puntaje(puntos_base, errores, tiempo, dificultad):
+    if dificultad == "Facil":
+        bonus_dificultad = 1.25
+    elif dificultad == "Intermedio": 
+        bonus_dificultad = 1.50
+    elif dificultad == "Dificil":
+        bonus_dificultad = 1.75
+
+    puntaje = (puntos_base - (errores * 50) - (tiempo * 10)) * bonus_dificultad
+
+    return puntaje
+>>>>>>> 2e9e59ccc25d55af8a2ec8826caa651a02669c0c

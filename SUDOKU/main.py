@@ -8,9 +8,12 @@ from pantallas.puntajes import dibujar_pantalla_puntajes
 from pantallas.pausa import dibujar_pantalla_pausa
 from pantallas.ganaste import dibujar_pantalla_ganaste
 
+
 #--------------------------------------------------------------------------------------------------------------
+
 # Inicializamos pygame
 pygame.init()
+
 #--------------------------------------------------------------------------------------------------------------
 
 # Configuración de la pantalla
@@ -86,7 +89,9 @@ while juego_corriendo:
                     cant_errores = 0
 
                 elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     pantalla_activa = "puntajes"
+                    #fade_in(pantalla)
 
                 elif dibujar_boton_salir(pantalla).collidepoint(cursor):
                     juego_corriendo = False
@@ -110,6 +115,7 @@ while juego_corriendo:
                     tiempo_inicio = pygame.time.get_ticks()
 
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     celda_actual = None
                     pantalla_activa = "inicio"
 
@@ -122,6 +128,7 @@ while juego_corriendo:
 
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
+                    #fade_out(pantalla)
                     pantalla_activa = "inicio"
 
         if evento.type == pygame.KEYDOWN:
@@ -141,6 +148,7 @@ while juego_corriendo:
         rectangulo_sudoku = dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual)
         boton_pausa = dibujar_boton_pausa(pantalla)
 
+    # Nueva sección: Pantalla de pausa
     elif pantalla_activa == "pausa":
         dibujar_pantalla_pausa(pantalla, ANCHO_PANTALLA, LARGO_PANTALLA)
 

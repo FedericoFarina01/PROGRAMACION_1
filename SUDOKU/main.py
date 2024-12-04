@@ -6,13 +6,11 @@ from pantallas.inicio import dibujar_pantalla_inicio, cambiar_dificultad
 from pantallas.principal import dibujar_pantalla_principal
 from pantallas.puntajes import dibujar_pantalla_puntajes
 from pantallas.pausa import dibujar_pantalla_pausa
-
+from pantallas.ganaste import dibujar_pantalla_ganaste
 
 #--------------------------------------------------------------------------------------------------------------
-
 # Inicializamos pygame
 pygame.init()
-
 #--------------------------------------------------------------------------------------------------------------
 
 # Configuración de la pantalla
@@ -79,9 +77,8 @@ while juego_corriendo:
             # Detectar clic en los botones de la pantalla de inicio
             if pantalla_activa == "inicio":
                 if dibujar_boton_jugar(pantalla).collidepoint(cursor):
-                    #fade_out(pantalla)
+                    # Cuando el jugador haga clic en "Jugar", generamos el Sudoku
                     tiempo_inicio = pygame.time.get_ticks()
-                    sudoku_actual = generar_sudoku(dificultad)  # Generar Sudoku al iniciar el juego
                     pantalla_activa = "principal"
                     sudoku_completo = matriz_resolucion()
                     sudoku_oculto = matriz_oculta(sudoku_completo, dificultad)
@@ -89,9 +86,7 @@ while juego_corriendo:
                     celda_actual = None
                     
                 elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
-                    #fade_out(pantalla)
                     pantalla_activa = "puntajes"
-                    #fade_in(pantalla)
 
                 elif dibujar_boton_salir(pantalla).collidepoint(cursor):
                     juego_corriendo = False
@@ -104,7 +99,6 @@ while juego_corriendo:
             # Detectar clic en los botones de la pantalla principal
             elif pantalla_activa == "principal":
                 celda_actual = resaltar_celda(pantalla, celda_actual, sudoku_celdas())
-                print(celda_actual)
 
                 if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
                     celda_actual = None
@@ -113,11 +107,8 @@ while juego_corriendo:
                     sudoku_actual = sudoku_modificable(sudoku_oculto)
 
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
-                    #fade_out(pantalla)
                     celda_actual = None
                     pantalla_activa = "inicio"
-                    #fade_in(pantalla)
-                    #pygame.mixer.music.play(-1)
 
                 elif dibujar_boton_pausa(pantalla).collidepoint(cursor): 
                     pantalla_activa = "pausa"
@@ -130,22 +121,14 @@ while juego_corriendo:
                 if dibujar_boton_reanudar(pantalla).collidepoint(cursor): 
                         pantalla_activa = "principal"
 
-
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
-                    #fade_out(pantalla)
                     pantalla_activa = "inicio"
 
-                    #fade_in(pantalla)
-
-#--------------------------------------------------------------------------------------------------------------
-
         if evento.type == pygame.KEYDOWN:
-                tecla_presionada = pygame.key.name(evento.key)
-                ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores)
-
-
-#--------------------------------------------------------------------------------------------------------------
+            tecla_presionada = pygame.key.name(evento.key)
+            if pantalla_activa == "principal":
+                sudoku_actual, celda_actual, cant_errores = ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores)
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":
@@ -159,7 +142,6 @@ while juego_corriendo:
         rectangulo_sudoku = dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual)
         boton_pausa = dibujar_boton_pausa(pantalla)
 
-    # Nueva sección: Pantalla de pausa
     elif pantalla_activa == "pausa":
         dibujar_pantalla_pausa(pantalla, ANCHO_PANTALLA, LARGO_PANTALLA)
 
@@ -177,4 +159,4 @@ while juego_corriendo:
         dibujar_pantalla_ganaste(pantalla, ANCHO_PANTALLA, LARGO_PANTALLA, puntaje)
 
 
-    pygame.display.flip()  # Actualiza la pantalla
+    pygame.display.flip()

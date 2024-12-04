@@ -1,17 +1,34 @@
 import pygame
 
-def dibujar_pantalla_ganaste(pantalla, ancho_pantalla, largo_pantalla, puntos):
-    x = 280
-    y = 30
+
+def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base):
+
+    if dificultad == "Facil":
+        bonus_dificultad = 1.25
+    elif dificultad == "Medio":
+        bonus_dificultad = 1.5
+    elif dificultad == "Dificil":
+        bonus_dificultad = 1.75
+
+    # Calcular el puntaje final
+    puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
+
+    # Fondo y título
     pantalla.fill((50, 50, 50))  # Fondo gris oscuro
     fuente = pygame.font.SysFont("Arial", 50, bold=True)
     texto_ganaste = fuente.render("¡Ganaste!", True, (255, 255, 255))
-    dibujar_boton_nueva_partida(pantalla)  # Dibuja el botón "Nueva Partida"
-    dibujar_boton_ver_puntajes(pantalla)  # Dibuja el botón "Ver Puntajes"
+
+    # Dibuja los botones
+    dibujar_boton_nueva_partida(pantalla)  # Botón "Nueva Partida"
+    dibujar_boton_ver_puntajes(pantalla)  # Botón "Ver Puntajes"
+
+    # Mostrar el puntaje final
     fuente_puntos = pygame.font.SysFont("Arial", 40, bold=True)
-    texto_puntajes = fuente_puntos.render(f"Puntos: {puntos}", True, (0, 0, 0)) # Puntos deberia obtenerlo del main del sudoku.
+    texto_puntajes = fuente_puntos.render(f"Puntos: {int(puntaje_final)}", True, (0, 0, 0))
     pantalla.blit(texto_puntajes, (265, 200))
-    pantalla.blit(texto_ganaste, (x,y)) 
+
+    # Mostrar el título
+    pantalla.blit(texto_ganaste, (280, 30))
 
 
 def dibujar_boton_nueva_partida(pantalla):
@@ -26,9 +43,8 @@ def dibujar_boton_nueva_partida(pantalla):
     """
     x = 10
     y = 30
-    ancho = 120
+    ancho = 200
     alto = 40
-    puntos = 1000
 
     pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
     rect_nueva_partida = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
@@ -50,7 +66,7 @@ def dibujar_boton_ver_puntajes(pantalla):
     """
     x = 600
     y = 30  
-    ancho = 120
+    ancho = 200
     alto = 40
     pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
     rect_ver_puntajes = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 

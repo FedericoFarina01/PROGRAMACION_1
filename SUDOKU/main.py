@@ -49,7 +49,7 @@ nombre_jugador = ""
 click_izq = pygame.MOUSEBUTTONDOWN
 dificultad = "Facil"
 cant_errores = 0
-puntos = 1000
+puntaje_base = 1000
 
 #--------------------------------------------------------------------------------------------------------------
 
@@ -105,6 +105,8 @@ while juego_corriendo:
                     sudoku_completo = matriz_resolucion()
                     sudoku_oculto = matriz_oculta(sudoku_completo, dificultad) 
                     sudoku_actual = sudoku_modificable(sudoku_oculto)
+                    tiempo_inicio = pygame.time.get_ticks()
+                    cant_errores = 0
 
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
                     celda_actual = None
@@ -121,9 +123,24 @@ while juego_corriendo:
                 if dibujar_boton_reanudar(pantalla).collidepoint(cursor): 
                         pantalla_activa = "principal"
 
+
+            elif pantalla_activa == "ganaste":
+                if dibujar_boton_nueva_partida(pantalla).collidepoint(cursor):
+                    pantalla_activa = "principal"
+                    celda_actual = None
+                    sudoku_completo = matriz_resolucion()
+                    sudoku_oculto = matriz_oculta(sudoku_completo, dificultad) 
+                    sudoku_actual = sudoku_modificable(sudoku_oculto)
+                    tiempo_inicio = pygame.time.get_ticks()
+                    cant_errores = 0
+
+                elif dibujar_boton_ver_puntajes(pantalla).collidepoint(cursor):
+                    pantalla_activa = "puntajes"
+
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
+
 
         if evento.type == pygame.KEYDOWN:
             tecla_presionada = pygame.key.name(evento.key)
@@ -147,16 +164,13 @@ while juego_corriendo:
 
     
     elif pantalla_activa == "ganaste":
-        # Calcular tiempo transcurrido
+        # Calcular el tiempo transcurrido
         tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000  # Tiempo en segundos
         minutos = tiempo_transcurrido // 60
         segundos = tiempo_transcurrido % 60
 
-        # Calcular puntaje
-        puntaje = calcular_puntaje(cant_errores, minutos, dificultad, puntos)
-
         # Dibujar pantalla de ganaste con el puntaje calculado
-        dibujar_pantalla_ganaste(pantalla, ANCHO_PANTALLA, LARGO_PANTALLA, puntaje)
+        dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base)
 
 
     pygame.display.flip()

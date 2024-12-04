@@ -131,23 +131,6 @@ def dibujar_boton_volver(pantalla):
     return rect_volver
 
 #--------------------------------------------------------------------------------------------------------------
-# EL INGRESO DEL NOMBRA VA A IR AL FINAL DE LA PARTIDA 
-""" def dibujar_boton_nombre(pantalla, nombre_jugador):
-
-    x = 200
-    y = 500
-    ancho = 250
-    alto = 30
-
-
-    rect_nombre = pygame.draw.rect(pantalla, (0, 0, 0),(x, y, ancho, alto))  # Caja nombre
-    fuente = pygame.font.SysFont("Arial", 25, bold=True)
-    etiqueta = fuente.render("Nombre: ", True, (0, 0, 0)) # Etiqueta
-    texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0)) 
-    pantalla.blit(texto_nombre, (x + 5, y + 5))  # Texto dentro de la caja
-    pantalla.blit(etiqueta, (75, 510))
-
-    return rect_nombre """
 
 
 #--------------------------------------------------------------------------------------------------------------
@@ -205,15 +188,20 @@ def dibujar_errores(pantalla, cant_errores:int):
         pantalla: Representa la pantalla donde se dibuja el contador de errores
     """
     x = 495
-    y = 30
+    y = 28
+    ancho = 120
+    alto = 25
 
+
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20)
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
     errores_texto_sombra = fuente.render("Errores:", True, (0, 0, 0))
-    errores_texto = fuente.render("Errores:", True, (200, 143, 90))  
-    pantalla.blit(errores_texto_sombra, (x + 6 , y + 6)) 
-    pantalla.blit(errores_texto, (x + 5, y + 5))
+    errores_texto = fuente.render("Errores:", True, (0, 0, 0))  
+    pantalla.blit(errores_texto_sombra, (x + 6 , y + 1)) 
+    pantalla.blit(errores_texto, (x + 5, y))
     errores_valor = fuente.render(f"{cant_errores}", True, (0, 0, 0))  
-    pantalla.blit(errores_valor, (x + 90, y + 5)) 
+    pantalla.blit(errores_valor, (x + 80, y)) 
 
 #--------------------------------------------------------------------------------------------------------------
 
@@ -227,7 +215,9 @@ def dibujar_tiempo(pantalla, tiempo_inicio):
     """
 
     x = 170
-    y = 34
+    y = 28
+    ancho = 120
+    alto = 25
 
 
     tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000 
@@ -235,10 +225,12 @@ def dibujar_tiempo(pantalla, tiempo_inicio):
     segundos = tiempo_transcurrido % 60  # Segundos restantes
 
     fuente = pygame.font.SysFont("Arial", 20, bold=True)
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20)
     tiempo_texto_sombra = fuente.render("Tiempo:", True, (0, 0, 0))
-    tiempo_texto = fuente.render("Tiempo:", True, (200, 143, 90))  
-    pantalla.blit(tiempo_texto_sombra, (x + 1 , y + 1))  
-    pantalla.blit(tiempo_texto, (x, y))  
+    tiempo_texto = fuente.render("Tiempo:", True, (0, 0, 0))  
+    pantalla.blit(tiempo_texto_sombra, (x + 3 , y + 1))  
+    pantalla.blit(tiempo_texto, (x + 2, y))  
     tiempo = fuente.render(f"{minutos:02}:{segundos:02}", True, (0, 0, 0)) 
     pantalla.blit(tiempo, (x + 75, y))  
 
@@ -267,6 +259,47 @@ def dibujar_boton_reanudar(pantalla):
     pantalla.blit(texto_reanudar, (x + 20, y + 5))
     
     return rect_reanudar
-#--------------------------------------------------------------------------------------------------------------
 
+def dibujar_boton_nueva_partida(pantalla):
+    """
+    Dibuja el boton reanudar en la pantalla
+
+    Parametros:
+        pantalla: Representa la pantalla donde se dibuja el boton
     
+    Retorna:
+        rect_jugar: Representa el area del boton reanudar
+    """
+    x = 300
+    y = 400
+    ancho = 120
+    alto = 40
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    rect_nueva_partida = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_nueva_partida = fuente.render("Nueva partida", True, (0, 0, 0))
+    pantalla.blit(texto_nueva_partida, (x + 20, y + 5))
+    
+    return rect_nueva_partida
+
+def dibujar_boton_ver_puntajes(pantalla):
+    """
+    Dibuja el boton reanudar en la pantalla
+
+    Parametros:
+        pantalla: Representa la pantalla donde se dibuja el boton
+    
+    Retorna:
+        rect_jugar: Representa el area del boton reanudar
+    """
+    x = 300
+    y = 400
+    ancho = 120
+    alto = 40
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2), border_radius= 20)
+    rect_ver_puntajes = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto), border_radius= 20) 
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_ver_puntajes = fuente.render("Nueva partida", True, (0, 0, 0))
+    pantalla.blit(texto_ver_puntajes, (x + 20, y + 5))
+    
+    return rect_ver_puntajes

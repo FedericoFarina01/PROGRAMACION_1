@@ -1,8 +1,10 @@
 import pygame
+from botones import dibujar_caja_texto
 
-
-def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base):
-
+def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base, nombre_jugador):
+    """
+    Dibuja la pantalla de ganaste y permite mostrar y actualizar el nombre del jugador.
+    """
     if dificultad == "Facil":
         bonus_dificultad = 1.25
     elif dificultad == "Medio":
@@ -16,19 +18,30 @@ def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaj
     # Fondo y título
     pantalla.fill((50, 50, 50))  # Fondo gris oscuro
     fuente = pygame.font.SysFont("Arial", 50, bold=True)
-    texto_ganaste = fuente.render("¡Ganaste!", True, (255, 255, 255))
-
-    # Dibuja los botones
-    dibujar_boton_nueva_partida(pantalla)  # Botón "Nueva Partida"
-    dibujar_boton_ver_puntajes(pantalla)  # Botón "Ver Puntajes"
+    texto_ganaste = fuente.render("¡GANASTE!", True, (255, 255, 255))
 
     # Mostrar el puntaje final
     fuente_puntos = pygame.font.SysFont("Arial", 40, bold=True)
     texto_puntajes = fuente_puntos.render(f"Puntos: {int(puntaje_final)}", True, (0, 0, 0))
     pantalla.blit(texto_puntajes, (265, 200))
 
+    # Dibuja los botones
+    dibujar_boton_nueva_partida(pantalla)  # Botón "Nueva Partida"
+    dibujar_boton_ver_puntajes(pantalla)  # Botón "Ver Puntajes"
+
+    # Dibujar la caja de texto
+    rect_caja = dibujar_caja_texto(pantalla)
+
+    # Mostrar el nombre del jugador dentro de la caja de texto
+    fuente_caja = pygame.font.SysFont("Arial", 30)
+    texto_nombre = fuente_caja.render(nombre_jugador, True, (0, 0, 0))
+    pantalla.blit(texto_nombre, (rect_caja.x + 10, rect_caja.y + 5))
+
     # Mostrar el título
     pantalla.blit(texto_ganaste, (280, 30))
+
+    return rect_caja  # Devuelve el rectángulo de la caja para detectar clics
+
 
 
 def dibujar_boton_nueva_partida(pantalla):

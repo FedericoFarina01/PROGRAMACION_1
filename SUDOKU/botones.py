@@ -304,3 +304,34 @@ def dibujar_boton_ver_puntajes(pantalla):
     pantalla.blit(texto_ver_puntajes, (x + 20, y + 5))
     
     return rect_ver_puntajes
+
+
+
+def dibujar_caja_texto(pantalla):
+    """
+    """
+    x = 265
+    y = 300
+    ancho = 250
+    alto = 40
+
+    # Dibujar la caja
+    pygame.draw.rect(pantalla, (0, 0, 0), (x - 2, y - 2, ancho + 2 * 2, alto + 2 * 2))
+    rect_caja = pygame.draw.rect(pantalla, (200, 143, 90), (x, y, ancho, alto))
+
+    return rect_caja
+
+def ingresar_nombre(pantalla):
+    nombre_jugador = ""
+    lista_eventos = pygame.event.get()
+    for evento in lista_eventos:
+        if evento.key == pygame.K_BACKSPACE: 
+            nombre_jugador = nombre_jugador[0:-1] 
+        elif evento.key == pygame.K_RETURN: 
+            print("DEJO DE ESCRIBIR")
+        else:
+            nombre_jugador += evento.unicode 
+
+    fuente = pygame.font.SysFont("Arial", 25, bold=True)
+    texto_nombre = fuente.render(nombre_jugador, True, (0, 0, 0))
+    pantalla.blit(texto_nombre, (270, 300))

@@ -50,6 +50,7 @@ click_izq = pygame.MOUSEBUTTONDOWN
 dificultad = "Facil"
 cant_errores = 0
 puntaje_base = 1000
+caja_texto_activa = False
 
 #--------------------------------------------------------------------------------------------------------------
 
@@ -137,15 +138,29 @@ while juego_corriendo:
                 elif dibujar_boton_ver_puntajes(pantalla).collidepoint(cursor):
                     pantalla_activa = "puntajes"
 
+                elif pantalla_activa == "ganaste":
+                    if dibujar_caja_texto(pantalla).collidepoint(cursor):
+                        caja_texto_activa = True  
+                    else:
+                        caja_texto_activa = False 
+
+
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
 
 
         if evento.type == pygame.KEYDOWN:
-            tecla_presionada = pygame.key.name(evento.key)
+            tecla_presionada = pygame.key.name(evento.key) 
             if pantalla_activa == "principal":
                 sudoku_actual, celda_actual, cant_errores = ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores)
+
+            elif pantalla_activa == "ganaste" and caja_texto_activa:
+                if evento.key == pygame.K_BACKSPACE:
+                    nombre_jugador = nombre_jugador[:-1]  
+                elif len(nombre_jugador) < 15:  
+                    nombre_jugador += evento.unicode
+
 
     # Dibujar pantallas
     if pantalla_activa == "inicio":
@@ -170,7 +185,7 @@ while juego_corriendo:
         segundos = tiempo_transcurrido % 60
 
         # Dibujar pantalla de ganaste con el puntaje calculado
-        dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base)
+        dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base, nombre_jugador)
 
 
     pygame.display.flip()

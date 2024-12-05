@@ -522,21 +522,6 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
 
 #--------------------------------------------------------------------------------------------
 
-def ganaste_sudoku(sudoku_actual, sudoku_completo):
-    tablero_completado = False
-    sudoku_completo_str = []
-    for fila in sudoku_completo:
-        fila_str = []
-        for celda in fila:
-            fila_str.append(str(celda))
-        sudoku_completo_str.append(fila_str)
-    # Preguntamos si el sudoku actual es igual al sudoku completo siendo que ambos ahora son str
-    if sudoku_actual == sudoku_completo_str:
-        tablero_completado = True
-    return tablero_completado
-
-# #--------------------------------------------------------------------------------------------
-
 def obtener_color_del_numero(matriz_original, matriz_modificable, tecla_ingresada, fila, columna, COLOR_CORRECTO, COLOR_INCORRECTO):
     """
     Determina el color que debe tener un número según si es correcto o incorrecto.
@@ -560,7 +545,17 @@ def obtener_color_del_numero(matriz_original, matriz_modificable, tecla_ingresad
 
 #--------------------------------------------------------------------------------------------
 
-def ganaste_el_sudoku(sudoku_actual, sudoku_completo):
+def ganaste_el_sudoku(sudoku_actual, sudoku_completo) -> bool:
+    """
+    Determina si el sudoku se completo correctamente o no
+    
+    Parámetros:
+       sudoku_actual: Representa el sudoku con el que interactua el jugador
+       sudoku_completo: Representa el sudoku completo contra el que comparar si el sudoku_actual es igual
+    
+    Retorna:
+       sudoku_actual_str == sudoku_completo_str (bool)
+    """
     # Convertir ambos tableros a listas de cadenas
     sudoku_completo_str = []
     for fila in sudoku_completo:
@@ -577,6 +572,19 @@ def ganaste_el_sudoku(sudoku_actual, sudoku_completo):
 #--------------------------------------------------------------------------------------------
 
 def calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad):
+    """
+    Calcula el puntaje obtenido por el jugador
+    
+    Parámetros:
+       cant_errores: Representa la cantidad de errores cometidos
+       minutos: Representa los minutos transcurridos por los que se penalizaran puntos
+       dificultad: Representa la dificultad del juego
+       puntaje_base: Representa la cantidad de puntos con la que se inicia el juego
+       bonus_dificutad: Representa un bonus segun la dificultad del juego
+    
+    Retorna:
+       puntaje_final (float): Representa el puntaje final obtenido
+    """
     if dificultad == "Facil":
         bonus_dificultad = 1.25
     elif dificultad == "Medio":
@@ -598,6 +606,12 @@ def calcular_tiempo(tiempo_inicio):
     return minutos_transcurridos
 
 def ordenar_puntajes(lista_puntajes):
+    """
+    Ordena los puntaje de la lista_puntajes del más alto al más bajo
+
+    Parámetros:
+       lista_puntajes: Representa la lista que contiene los datos de los puntajes obtenidos por los jugadores
+    """
     for i in range(len(lista_puntajes) -1):
         for j in range(i+1,len(lista_puntajes)):
             if lista_puntajes[i]["puntos"] < lista_puntajes[j]["puntos"]:
@@ -605,7 +619,17 @@ def ordenar_puntajes(lista_puntajes):
                 lista_puntajes[i] = lista_puntajes[j]
                 lista_puntajes[j] = aux_puntaje
             
-def buscar_jugador(lista_puntajes,nombre_jugador):
+def buscar_jugador(lista_puntajes,nombre_jugador) -> int:
+    """
+    Busca si un jugador se encuentra o no en la lista de puntajes
+
+    Parámetros:
+       lista_puntajes: Representa la lista que contiene los datos de los puntajes obtenidos por los jugadores
+       nombre_jugador: Representa el nombre del jugador a buscar
+
+    Retorna:
+        indice (int): Representa en indice de la lista en el que se encuentra al jugador
+    """
     indice = None
     
     for i in range(len(lista_puntajes)):
@@ -616,6 +640,15 @@ def buscar_jugador(lista_puntajes,nombre_jugador):
     return indice
 
 def cambiar_estadisticas_jugador(lista_puntajes,indice_jugador,puntos,nombre):
+    """
+    Modifica los datos de un jugador para que solo se guarde su puntaje más alto en la lista_puntajes
+
+    Parámetros:
+       lista_puntajes: Representa la lista que contiene los datos de los puntajes obtenidos por los jugadores
+       indice_jugador: Representa en indice de la lista en el que se encuentra al jugador
+       puntos: Representa la cantidad de puntos del jugador
+       nombre: Representa el nombre del jugador
+    """
     if indice_jugador != None:
         if puntos > lista_puntajes[indice_jugador]["puntos"]:
             lista_puntajes[indice_jugador]["puntos"] = puntos

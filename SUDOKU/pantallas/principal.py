@@ -15,6 +15,15 @@ img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
 pantalla = pygame.display.set_mode(dimension_pantalla)
 
 def dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores):
+    """
+    Dibuja los elementos que se muestran en la pantalla principal del juego
+
+    Parametros:
+        pantalla: Representa la pantalla donde se dibujan los elementos
+        tiempo_inicio: Representa el momento en que arranca el contador de tiempo
+        cant_errores: Representa la cantidad de errores cometidos
+
+    """
     pantalla.blit(img_fondo, (-100, -100))
     dibujar_boton_volver(pantalla) 
     dibujar_boton_reiniciar(pantalla)

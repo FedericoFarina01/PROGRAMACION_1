@@ -54,8 +54,6 @@ cant_errores = 0
 puntaje_base = 1000
 caja_texto_activa = False
 
-#bonus_dificultad = 0
-
 if dificultad == "Facil":
     bonus_dificultad = 1.25
 elif dificultad == "Medio":
@@ -79,6 +77,7 @@ input_rect = pygame.Rect(300, 300, 200, 40)
 fuente_texto = pygame.font.SysFont("Arial", 30)
 lista_puntajes = leer_json("SUDOKU/usuarios.json")
 
+#--------------------------------------------------------------------------------------------------------------
 
 while juego_corriendo:
     lista_eventos = pygame.event.get()
@@ -104,7 +103,6 @@ while juego_corriendo:
                     celda_actual = None
                     
                 elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
-                    #if bandera_puntaje == False:
                     ordenar_puntajes(lista_puntajes)
                     pantalla_activa = "puntajes"
 
@@ -142,7 +140,7 @@ while juego_corriendo:
                     minutos = tiempo_transcurrido // 60
                     segundos = tiempo_transcurrido % 60
                     puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
-                    #puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
+                    
 
             elif pantalla_activa == "pausa":
                 if dibujar_boton_reanudar(pantalla).collidepoint(cursor): 
@@ -162,7 +160,7 @@ while juego_corriendo:
                 elif dibujar_boton_ver_puntajes(pantalla).collidepoint(cursor):
                     pantalla_activa = "puntajes"
 
-                elif pantalla_activa == "ganaste":
+                elif pantalla_activa == "ganaste": # Seleccionar caja de texto
                     if dibujar_caja_texto(pantalla).collidepoint(cursor):
                         caja_texto_activa = True  
                     else:
@@ -195,7 +193,6 @@ while juego_corriendo:
                         caja_texto_activa = False
 
 
-
     # Dibujar pantallas
     if pantalla_activa == "inicio":
         dibujar_pantalla_inicio(pantalla, dificultad)
@@ -211,14 +208,8 @@ while juego_corriendo:
     elif pantalla_activa == "pausa":
         dibujar_pantalla_pausa(pantalla, ANCHO_PANTALLA, LARGO_PANTALLA)
 
-    
     elif pantalla_activa == "ganaste":
-        # Calcular el tiempo transcurrido
-
         # Dibujar pantalla de ganaste con el puntaje calculado
-        #puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
-
         dibujar_pantalla_ganaste(pantalla, puntaje_final, nombre_jugador)
-
 
     pygame.display.flip()

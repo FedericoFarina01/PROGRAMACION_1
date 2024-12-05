@@ -1,7 +1,7 @@
 import pygame
 
 
-def dibujar_boton_jugar(pantalla):
+def dibujar_boton_jugar(pantalla) -> pygame.Rect :
     """
     Dibuja el boton jugar en la pantalla
 
@@ -28,7 +28,7 @@ def dibujar_boton_jugar(pantalla):
     return rect_jugar
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_puntajes(pantalla):
+def dibujar_boton_puntajes(pantalla) -> pygame.Rect:
     """
     Dibuja el boton puntajes en la pantalla
 
@@ -54,7 +54,7 @@ def dibujar_boton_puntajes(pantalla):
 
     return rect_puntajes
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_dificultad(pantalla, dificultad):
+def dibujar_boton_dificultad(pantalla, dificultad) -> pygame.Rect:
     """
     Dibuja el boton dificultad en la pantalla
 
@@ -82,7 +82,7 @@ def dibujar_boton_dificultad(pantalla, dificultad):
     return rect_dificultad
     
 #----------------------------------------------------------------------------------
-def dibujar_boton_salir(pantalla):
+def dibujar_boton_salir(pantalla) -> pygame.Rect:
     """
     Dibuja el boton salir en la pantalla
 
@@ -109,7 +109,7 @@ def dibujar_boton_salir(pantalla):
     return rect_salir
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_volver(pantalla):
+def dibujar_boton_volver(pantalla) -> pygame.Rect:
     """
     Dibuja el boton volver en la pantalla
 
@@ -117,7 +117,7 @@ def dibujar_boton_volver(pantalla):
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_jugar: Representa el area del boton volver
+        rect_volver: Representa el area del boton volver
     """
     imagen_volver = pygame.image.load("SUDOKU/imagenes/flecha_volver.png")
     imagen_volver = pygame.transform.scale(imagen_volver, (50, 50))  
@@ -134,7 +134,7 @@ def dibujar_boton_volver(pantalla):
 
 
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_reiniciar(pantalla):
+def dibujar_boton_reiniciar(pantalla) -> pygame.Rect:
     """
     Dibuja el boton reiniciar en la pantalla
 
@@ -142,7 +142,7 @@ def dibujar_boton_reiniciar(pantalla):
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_jugar: Representa el area del boton reiniciar
+        rect_reiniciar: Representa el area del boton reiniciar
     """
     
     x = 662
@@ -158,7 +158,7 @@ def dibujar_boton_reiniciar(pantalla):
     
     return rect_reiniciar
 #--------------------------------------------------------------------------------------------------------------
-def dibujar_boton_pausa(pantalla):
+def dibujar_boton_pausa(pantalla) -> pygame.Rect:
     """
     Dibuja el boton pausa en la pantalla
 
@@ -166,7 +166,7 @@ def dibujar_boton_pausa(pantalla):
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_jugar: Representa el area del boton pausa
+        rect_pausa: Representa el area del boton pausa
     """
     x = 12
     y = 290
@@ -205,7 +205,7 @@ def dibujar_errores(pantalla, cant_errores:int):
 
 #--------------------------------------------------------------------------------------------------------------
 
-def dibujar_tiempo(pantalla, tiempo_inicio):
+def dibujar_tiempo(pantalla, tiempo_inicio) -> pygame.time:
     """
     Dibuja el tiempo en la pantalla
 
@@ -238,7 +238,7 @@ def dibujar_tiempo(pantalla, tiempo_inicio):
 
 #--------------------------------------------------------------------------------------------------------------
 
-def dibujar_boton_reanudar(pantalla):
+def dibujar_boton_reanudar(pantalla) -> pygame.Rect:
     """
     Dibuja el boton reanudar en la pantalla
 
@@ -246,7 +246,7 @@ def dibujar_boton_reanudar(pantalla):
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_jugar: Representa el area del boton reanudar
+        rect_reanudar: Representa el area del boton reanudar
     """
     x = 300
     y = 400
@@ -260,15 +260,15 @@ def dibujar_boton_reanudar(pantalla):
     
     return rect_reanudar
 
-def dibujar_boton_nueva_partida(pantalla):
+def dibujar_boton_nueva_partida(pantalla) -> pygame.Rect:
     """
-    Dibuja el boton reanudar en la pantalla
+    Dibuja el boton nueva_partida en la pantalla
 
     Parametros:
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_nueva_partida: Representa el area del boton reanudar
+        rect_nueva_partida: Representa el area del boton
     """
     x = 10
     y = 30
@@ -283,15 +283,15 @@ def dibujar_boton_nueva_partida(pantalla):
     
     return rect_nueva_partida
 
-def dibujar_boton_ver_puntajes(pantalla):
+def dibujar_boton_ver_puntajes(pantalla) -> pygame.Rect:
     """
-    Dibuja el boton reanudar en la pantalla
+    Dibuja el boton ver_puntajes en la pantalla
 
     Parametros:
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_ver_puntajes: Representa el area del boton reanudar
+        rect_ver_puntajes: Representa el area del boton reanuar
     """
     x = 600
     y = 30  
@@ -307,8 +307,15 @@ def dibujar_boton_ver_puntajes(pantalla):
 
 
 
-def dibujar_caja_texto(pantalla):
+def dibujar_caja_texto(pantalla) -> pygame.Rect:
     """
+    Dibuja la caja de texto en la pantalla
+
+    Parametros:
+        pantalla: Representa la pantalla donde se dibuja la caja de texto
+    
+    Retorna:
+        rect_caja: Representa el area de la caja
     """
     x = 265
     y = 300
@@ -322,6 +329,12 @@ def dibujar_caja_texto(pantalla):
     return rect_caja
 
 def ingresar_nombre(pantalla):
+    """
+    Permite ingresar el nombre del jugador en la caja de texto
+
+    Parametros:
+        pantalla: Representa la pantalla donde se escribe el nombre
+    """
     nombre_jugador = ""
     lista_eventos = pygame.event.get()
     for evento in lista_eventos:

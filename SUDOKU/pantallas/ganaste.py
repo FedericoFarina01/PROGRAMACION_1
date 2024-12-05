@@ -4,19 +4,18 @@ import json
 from funciones import calcular_puntaje
 
 def dibujar_pantalla_ganaste(pantalla, puntaje_final, nombre_jugador):
-    
-    # #Calcular puntaje 
-    # if dificultad == "Facil":
-    #     bonus_dificultad = 1.25
-    # elif dificultad == "Medio":
-    #     bonus_dificultad = 1.5
-    # elif dificultad == "Dificil":
-    #     bonus_dificultad = 1.75 
+    """
+    Dibuja los elementos que se muestran en la pantalla al ganar el Sudoku
 
-    # puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
+    Parametros:
+        pantalla: Representa la pantalla donde se dibujan los elementos
+    
+    Retorna:
+        rect_caja: Representa el area de la caja de texto
+    """
 
     # Fondo y título
-    pantalla.fill((50, 50, 50))  # Fondo gris oscuro
+    pantalla.fill((50, 50, 50))  
     fuente = pygame.font.SysFont("Arial", 50, bold=True)
     texto_ganaste = fuente.render("¡GANASTE!", True, (255, 255, 255))
 
@@ -44,13 +43,13 @@ def dibujar_pantalla_ganaste(pantalla, puntaje_final, nombre_jugador):
 #------------------------------------------------------------------------------------------------------------
 def dibujar_boton_nueva_partida(pantalla):
     """
-    Dibuja el boton reanudar en la pantalla
+    Dibuja el boton nueva_partida en la pantalla
 
     Parametros:
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_nueva_partida: Representa el area del boton reanudar
+        rect_nueva_partida: Representa el area del boton 
     """
     x = 10
     y = 30
@@ -69,13 +68,13 @@ def dibujar_boton_nueva_partida(pantalla):
 
 def dibujar_boton_ver_puntajes(pantalla):
     """
-    Dibuja el boton reanudar en la pantalla
+    Dibuja el boton ver_puntajes en la pantalla
 
     Parametros:
         pantalla: Representa la pantalla donde se dibuja el boton
     
     Retorna:
-        rect_ver_puntajes: Representa el area del boton reanudar
+        rect_ver_puntajes: Representa el area del boton 
     """
     x = 600
     y = 30  

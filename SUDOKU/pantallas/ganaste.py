@@ -1,21 +1,19 @@
 import pygame
 from botones import dibujar_caja_texto
 import json
+from funciones import calcular_puntaje
 
 def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base, nombre_jugador):
-    """
-    Dibuja la pantalla de ganaste y permite mostrar y actualizar el nombre del jugador.
-    """
+    
+    #Calcular puntaje 
     if dificultad == "Facil":
         bonus_dificultad = 1.25
     elif dificultad == "Medio":
         bonus_dificultad = 1.5
     elif dificultad == "Dificil":
-        bonus_dificultad = 1.75
+        bonus_dificultad = 1.75 
 
-    # Calcular el puntaje final
-    puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
-
+    puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
 
     # Fondo y título
     pantalla.fill((50, 50, 50))  # Fondo gris oscuro
@@ -25,11 +23,10 @@ def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaj
     # Mostrar el puntaje final
     fuente_puntos = pygame.font.SysFont("Arial", 40, bold=True)
     texto_puntajes = fuente_puntos.render(f"Puntos: {int(puntaje_final)}", True, (0, 0, 0))
-    pantalla.blit(texto_puntajes, (265, 200))
 
     # Dibuja los botones
-    dibujar_boton_nueva_partida(pantalla)  # Botón "Nueva Partida"
-    dibujar_boton_ver_puntajes(pantalla)  # Botón "Ver Puntajes"
+    dibujar_boton_nueva_partida(pantalla) 
+    dibujar_boton_ver_puntajes(pantalla) 
 
     # Dibujar la caja de texto
     rect_caja = dibujar_caja_texto(pantalla)
@@ -37,12 +34,12 @@ def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaj
     # Mostrar el nombre del jugador dentro de la caja de texto
     fuente_caja = pygame.font.SysFont("Arial", 30)
     texto_nombre = fuente_caja.render(nombre_jugador, True, (0, 0, 0))
-    pantalla.blit(texto_nombre, (rect_caja.x + 10, rect_caja.y + 5))
 
-    # Mostrar el título
+    pantalla.blit(texto_nombre, (rect_caja.x + 10, rect_caja.y + 5))
+    pantalla.blit(texto_puntajes, (265, 200))
     pantalla.blit(texto_ganaste, (280, 30))
 
-    return rect_caja  # Devuelve el rectángulo de la caja para detectar clics
+    return rect_caja 
 
 #------------------------------------------------------------------------------------------------------------
 def dibujar_boton_nueva_partida(pantalla):
@@ -93,7 +90,7 @@ def dibujar_boton_ver_puntajes(pantalla):
     return rect_ver_puntajes
 
 #-------------------------------------------------------------------------------------------
-def guardar_jugador(archivo_json, nombre):
+def guardar_jugador(archivo_json, nombre, puntos):
     """Guarda el jugador y puntaje en un archivo JSON."""
     try:
         with open(archivo_json, "r") as archivo:
@@ -101,6 +98,6 @@ def guardar_jugador(archivo_json, nombre):
     except FileNotFoundError:
         datos = []
 
-    datos.append({"nombre": nombre})
+    datos.append({"nombre": nombre, "puntos": puntos})
     with open(archivo_json, "w") as archivo:
         json.dump(datos, archivo, indent=4)

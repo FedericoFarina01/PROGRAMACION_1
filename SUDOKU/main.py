@@ -182,14 +182,13 @@ while juego_corriendo:
                     nombre_jugador += evento.unicode
 
                 elif evento.key == pygame.K_RETURN:
+                    puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
                     if 0 < len(nombre_jugador) <= 15:
                         lista_jugadores.append(nombre_jugador)
-                        guardar_jugador(archivo_json, nombre_jugador)
-                    else: 
-                        guardar_jugador(archivo_json, "Sin nombre")
+                        guardar_jugador(archivo_json, nombre_jugador, puntaje_final)
+                    else:
+                        guardar_jugador(archivo_json, "Sin nombre", puntaje_final)
 
-
-                        #lista_puntajes.append(puntaje_base - (cant_errores * 50) - (minutos * 10)* bonus_dificultad) 
                         caja_texto_activa = False
                         print(lista_jugadores)  
                         #print(lista_puntajes)  

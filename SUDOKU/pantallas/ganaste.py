@@ -3,17 +3,17 @@ from botones import dibujar_caja_texto
 import json
 from funciones import calcular_puntaje
 
-def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base, nombre_jugador):
+def dibujar_pantalla_ganaste(pantalla, puntaje_final, nombre_jugador):
     
-    #Calcular puntaje 
-    if dificultad == "Facil":
-        bonus_dificultad = 1.25
-    elif dificultad == "Medio":
-        bonus_dificultad = 1.5
-    elif dificultad == "Dificil":
-        bonus_dificultad = 1.75 
+    # #Calcular puntaje 
+    # if dificultad == "Facil":
+    #     bonus_dificultad = 1.25
+    # elif dificultad == "Medio":
+    #     bonus_dificultad = 1.5
+    # elif dificultad == "Dificil":
+    #     bonus_dificultad = 1.75 
 
-    puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
+    # puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
 
     # Fondo y título
     pantalla.fill((50, 50, 50))  # Fondo gris oscuro
@@ -90,14 +90,3 @@ def dibujar_boton_ver_puntajes(pantalla):
     return rect_ver_puntajes
 
 #-------------------------------------------------------------------------------------------
-def guardar_jugador(archivo_json, nombre, puntos):
-    """Guarda el jugador y puntaje en un archivo JSON."""
-    try:
-        with open(archivo_json, "r") as archivo:
-            datos = json.load(archivo)
-    except FileNotFoundError:
-        datos = []
-
-    datos.append({"nombre": nombre, "puntos": puntos})
-    with open(archivo_json, "w") as archivo:
-        json.dump(datos, archivo, indent=4)

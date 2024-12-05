@@ -13,18 +13,23 @@ img_fondo = pygame.transform.scale(img_fondo, (1000, 800))
 # Creación de una pantalla
 pantalla = pygame.display.set_mode(dimension_pantalla)
 
-def dibujar_pantalla_puntajes(pantalla):
+def dibujar_pantalla_puntajes(pantalla,lista_puntajes):
     pantalla.fill((255, 255, 255))  
     pantalla.blit(img_fondo, (-100, -100))
     dibujar_boton_volver(pantalla) 
-    dibujar_top_5(pantalla)
+    dibujar_top_5(pantalla,lista_puntajes)
 
 
-def dibujar_top_5(pantalla):
-    dibujar_titulos_top(pantalla)
-    dibujar_top_5_rankings(pantalla)
-    dibujar_top_5_users(pantalla)
-    dibujar_top_5_puntos(pantalla)
+def dibujar_top_5(pantalla,lista_puntajes):
+    if len(lista_puntajes) != 0:
+        dibujar_titulos_top(pantalla)
+        dibujar_top_5_rankings(pantalla,lista_puntajes)
+        dibujar_top_5_users(pantalla,lista_puntajes)
+        dibujar_top_5_puntos(pantalla,lista_puntajes)
+    else:
+        fuente_grande = pygame.font.SysFont("Arial", 60, bold=True)
+        texto_puntos = fuente_grande.render("NO HAY PUNTAJES", True, (0, 0, 0))
+        pantalla.blit(texto_puntos, (200, 100))
 
 def dibujar_titulos_top(pantalla):
     fuente_titulos = pygame.font.SysFont("Arial", 40, bold=True)
@@ -36,12 +41,13 @@ def dibujar_titulos_top(pantalla):
     pantalla.blit(texto_puntos, (500, 100))
 
 
-def dibujar_top_5_rankings(pantalla):
-    dibujar_ranking(pantalla, "1.", 240, 200)
-    dibujar_ranking(pantalla, "2.", 240, 270)
-    dibujar_ranking(pantalla, "3.", 240, 345)
-    dibujar_ranking(pantalla, "4.", 240, 420)
-    dibujar_ranking(pantalla, "5.", 240, 495)
+def dibujar_top_5_rankings(pantalla,lista_puntajes):
+    valor_y = 200
+    for i in range(len(lista_puntajes)):
+        if i == 5:
+            break
+        dibujar_ranking(pantalla,str(i + 1),240,valor_y)
+        valor_y += 75
 
 
 def dibujar_ranking(pantalla, ranking, x, y):
@@ -50,12 +56,13 @@ def dibujar_ranking(pantalla, ranking, x, y):
     pantalla.blit(texto_ranking, (x, y))
 
 
-def dibujar_top_5_users(pantalla):
-    dibujar_user(pantalla, "Primero", 350, 206)
-    dibujar_user(pantalla, "Segundo", 350, 276)
-    dibujar_user(pantalla, "Tercero", 350, 351)
-    dibujar_user(pantalla, "Cuarto", 350, 426)
-    dibujar_user(pantalla, "Quinto", 350, 501)
+def dibujar_top_5_users(pantalla,lista_puntajes):
+    valor_y = 206
+    for i in range(len(lista_puntajes)):
+        if i == 5:
+            break
+        dibujar_user(pantalla, lista_puntajes[i]["nombre"], 350, valor_y)
+        valor_y += 75
 
 
 def dibujar_user(pantalla, user, x, y):
@@ -64,12 +71,14 @@ def dibujar_user(pantalla, user, x, y):
     pantalla.blit(texto_user, (x, y))
 
 
-def dibujar_top_5_puntos(pantalla):
-    dibujar_puntos(pantalla, "1000", 540, 206)
-    dibujar_puntos(pantalla, "2000", 540, 276)
-    dibujar_puntos(pantalla, "3000", 540, 351)
-    dibujar_puntos(pantalla, "4000", 540, 426)
-    dibujar_puntos(pantalla, "5000", 540, 501)
+def dibujar_top_5_puntos(pantalla,lista_puntajes):
+    valor_y = 206
+    for i in range(len(lista_puntajes)):
+        if i == 5:
+            break
+        dibujar_user(pantalla, str(lista_puntajes[i]["puntos"]), 540, valor_y)
+        valor_y += 75
+
 
 
 def dibujar_puntos(pantalla, puntos, x, y):

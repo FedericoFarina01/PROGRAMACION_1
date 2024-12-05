@@ -340,7 +340,7 @@ def ocultar_datos_matriz_segun_dificultad(matriz: list, dificultad: str, total_c
     return matriz
 
 #---------------------------------------------------------------------------------------------------------------------------------
-def dibujar_matriz_sudoku(pantalla, matriz, celda_actual, desde: int = 0, hasta: int = 10):
+def dibujar_matriz_sudoku(pantalla, matriz, celda_actual, sudoku_terminado, desde: int = 0, hasta: int = 10):
     """
     Dibuja la matriz de Sudoku en la pantalla de Pygame.
 
@@ -364,7 +364,16 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual, desde: int = 0, hasta:
     fuente = pygame.font.SysFont("Arial", TAMAÑO_FUENTE)
     for fila in range(len(matriz)):
         for columna in range(len(matriz[fila])):
-            dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_NUMEROS, celda_actual)
+            if type(matriz[fila][columna]) == int:
+                dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_NUMEROS, celda_actual)
+            else:
+                if matriz[fila][columna] != " ":
+                    if int(matriz[fila][columna]) != sudoku_terminado[fila][columna]:
+                        dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_ROJO, celda_actual)
+                    else:
+                        dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_AZUL, celda_actual)
+                else:
+                    dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_NUMEROS, celda_actual)
     return rect_tablero
 
 #------------------------------------------------------------------------------------------
@@ -492,6 +501,8 @@ def ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_act
             if tecla_presionada.isdigit() and 1 <= int(tecla_presionada) <= 9:
                 # Guardar el número ingresado en la celda seleccionada
                 sudoku_actual[fila][columna] = str(tecla_presionada)
+                print(sudoku_actual)
+                celda_actual = None
                 
                 # Comparar con la matriz resuelta
                 if int(tecla_presionada) != sudoku_completo[fila][columna]:
@@ -585,3 +596,31 @@ def calcular_tiempo(tiempo_inicio):
     minutos_transcurridos = tiempo_transcurrido // 60000
 
     return minutos_transcurridos
+
+def ordenar_puntajes(lista_puntajes):
+    for i in range(len(lista_puntajes) -1):
+        for j in range(i+1,len(lista_puntajes)):
+            if lista_puntajes[i]["puntos"] < lista_puntajes[j]["puntos"]:
+                aux_puntaje = lista_puntajes[i]
+                lista_puntajes[i] = lista_puntajes[j]
+                lista_puntajes[j] = aux_puntaje
+            
+def buscar_jugador(lista_puntajes,nombre_jugador):
+    indice = None
+    
+    for i in range(len(lista_puntajes)):
+        if lista_puntajes[i]["nombre"] == nombre_jugador:
+            indice = i
+            break
+    
+    return indice
+
+def cambiar_estadisticas_jugador(lista_puntajes,indice_jugador,puntos,nombre):
+    if indice_jugador != None:
+        if puntos > lista_puntajes[indice_jugador]["puntos"]:
+            lista_puntajes[indice_jugador]["puntos"] = puntos
+    else:
+        diccionario_jugador = {}
+        diccionario_jugador["nombre"] = nombre
+        diccionario_jugador["puntos"] = puntos
+        lista_puntajes.append(diccionario_jugador)

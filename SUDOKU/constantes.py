@@ -2,7 +2,8 @@
 COLOR_LINEA = (0, 0, 0)
 COLOR_NUMEROS= (0, 0, 0)  
 COLOR_CELDA_ACTUAL = (255, 255, 255)
-
+COLOR_ROJO = (255,0,0)
+COLOR_AZUL = (0,0,255)
 #------------------------------------------------------------------------------------------
 
 # Coordenadas de inicio y tamaño de celdas

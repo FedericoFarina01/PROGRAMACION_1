@@ -30,7 +30,7 @@ def dibujar_pantalla_principal(pantalla, tiempo_inicio, cant_errores):
     dibujar_boton_pausa(pantalla)
     dibujar_errores(pantalla, cant_errores)
     dibujar_tiempo(pantalla, tiempo_inicio)
-    #pygame.mixer.music.stop()
+    pygame.mixer.music.stop()
 
 #--------------------------------------------------------------------------------
     

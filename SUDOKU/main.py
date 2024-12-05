@@ -37,11 +37,10 @@ pygame.display.set_icon(img_icono)
 #--------------------------------------------------------------------------------------------------------------
 
 # Música
-""" pygame.mixer.init()
+pygame.mixer.init()
 pygame.mixer.music.load("SUDOKU/musica/Vibe Mountain.mp3")
 pygame.mixer.music.set_volume(0.4)
-pygame.mixer.music.play(-1) """
-
+pygame.mixer.music.play(-1)
 #--------------------------------------------------------------------------------------------------------------
 
 # Variables
@@ -129,6 +128,7 @@ while juego_corriendo:
                 elif dibujar_boton_volver(pantalla).collidepoint(cursor):
                     celda_actual = None
                     pantalla_activa = "inicio"
+                    pygame.mixer.music.play(-1)
 
                 elif dibujar_boton_pausa(pantalla).collidepoint(cursor): 
                     pantalla_activa = "pausa"

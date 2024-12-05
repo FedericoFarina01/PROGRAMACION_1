@@ -594,7 +594,8 @@ def calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_difi
 
     # Calcular el puntaje final restando puntos por los errores y el tiempo, multiplicado por el bono de dificultad
     puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
-    # 1000 - (4 * 50) - (1 * 10) * 1.25
+    if puntaje_final < 0:
+        puntaje_final = 0
     return puntaje_final
 
 

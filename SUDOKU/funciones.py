@@ -373,7 +373,7 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual, sudoku_terminado, desd
                     else:
                         dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_AZUL, celda_actual)
                 else:
-                    dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_NUMEROS, celda_actual)
+                    dibujar_numero(pantalla, fuente, matriz[fila][columna], fila, columna, INICIO_X, INICIO_Y, TAMAÑO_CELDA, COLOR_NUMEROS, celda_actual) # Sin esto no deaja resaltar celdas vacias
     return rect_tablero
 
 #------------------------------------------------------------------------------------------

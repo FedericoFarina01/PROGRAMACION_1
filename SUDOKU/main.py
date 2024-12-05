@@ -132,14 +132,6 @@ while juego_corriendo:
 
                 elif dibujar_boton_pausa(pantalla).collidepoint(cursor): 
                     pantalla_activa = "pausa"
-
-                # Verificar si el sudoku fue completado correctamente
-                if ganaste_el_sudoku(sudoku_actual, sudoku_completo):
-                    pantalla_activa = "ganaste"  # Si es correcto, cambiar a la pantalla de ganaste
-                    tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000  # Tiempo en segundos
-                    minutos = tiempo_transcurrido // 60
-                    segundos = tiempo_transcurrido % 60
-                    puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
                     
 
             elif pantalla_activa == "pausa":
@@ -173,9 +165,22 @@ while juego_corriendo:
 
 
         if evento.type == pygame.KEYDOWN:
-            tecla_presionada = pygame.key.name(evento.key) 
+            tecla_presionada = pygame.key.name(evento.key)
             if pantalla_activa == "principal":
                 sudoku_actual, celda_actual, cant_errores = ingresar_numeros(tecla_presionada, sudoku_actual, sudoku_completo, celda_actual, cant_errores)
+
+                # Verificar si el Sudoku está completado
+                if ganaste_el_sudoku(sudoku_actual, sudoku_completo):
+                    pantalla_activa = "ganaste"  # Cambiar a la pantalla de 'ganaste'
+                    tiempo_transcurrido = (pygame.time.get_ticks() - tiempo_inicio) // 1000  # Tiempo en segundos
+                    minutos = tiempo_transcurrido // 60
+                    segundos = tiempo_transcurrido % 60
+                    puntaje_final = calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad)
+                    cant_errores = 0
+
+
+                if tecla_presionada == "backspace":
+                    celda_actual == " "
 
             elif pantalla_activa == "ganaste" and caja_texto_activa:
                 if evento.key == pygame.K_BACKSPACE:

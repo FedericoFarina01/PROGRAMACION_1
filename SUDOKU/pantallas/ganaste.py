@@ -1,5 +1,6 @@
 import pygame
 from botones import dibujar_caja_texto
+import json
 
 def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaje_base, nombre_jugador):
     """
@@ -90,3 +91,16 @@ def dibujar_boton_ver_puntajes(pantalla):
     pantalla.blit(texto_ver_puntajes, (x + 20, y + 5))
     
     return rect_ver_puntajes
+
+#-------------------------------------------------------------------------------------------
+def guardar_jugador(archivo_json, nombre):
+    """Guarda el jugador y puntaje en un archivo JSON."""
+    try:
+        with open(archivo_json, "r") as archivo:
+            datos = json.load(archivo)
+    except FileNotFoundError:
+        datos = []
+
+    datos.append({"nombre": nombre})
+    with open(archivo_json, "w") as archivo:
+        json.dump(datos, archivo, indent=4)

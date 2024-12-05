@@ -7,6 +7,8 @@ from pantallas.principal import dibujar_pantalla_principal
 from pantallas.puntajes import dibujar_pantalla_puntajes
 from pantallas.pausa import dibujar_pantalla_pausa
 from pantallas.ganaste import dibujar_pantalla_ganaste
+from pantallas.ganaste import guardar_jugador
+
 
 #--------------------------------------------------------------------------------------------------------------
 # Inicializamos pygame
@@ -74,7 +76,12 @@ sudoku_actual = None
 
 #--------------------------------------------------------------------------------------------------------------
 
-# En tu ciclo principal, dentro del evento del juego, agrega la verificación:
+# Variables json
+user_text = nombre_jugador  # Inicializa con el nombre actual del jugador
+input_rect = pygame.Rect(300, 300, 200, 40)
+fuente_texto = pygame.font.SysFont("Arial", 30)
+archivo_json = "SUDOKU/usuarios.json"
+
 while juego_corriendo:
     lista_eventos = pygame.event.get()
     for evento in lista_eventos:
@@ -173,10 +180,15 @@ while juego_corriendo:
                     nombre_jugador = nombre_jugador[:-1]  
                 elif len(nombre_jugador) < 15 and evento.key != pygame.K_RETURN:  
                     nombre_jugador += evento.unicode
+
                 elif evento.key == pygame.K_RETURN:
-            
                     if 0 < len(nombre_jugador) <= 15:
                         lista_jugadores.append(nombre_jugador)
+                        guardar_jugador(archivo_json, nombre_jugador)
+                    else: 
+                        guardar_jugador(archivo_json, "Sin nombre")
+
+
                         #lista_puntajes.append(puntaje_base - (cant_errores * 50) - (minutos * 10)* bonus_dificultad) 
                         caja_texto_activa = False
                         print(lista_jugadores)  

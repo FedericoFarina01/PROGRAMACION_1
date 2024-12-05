@@ -15,6 +15,7 @@ def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaj
     # Calcular el puntaje final
     puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
 
+
     # Fondo y título
     pantalla.fill((50, 50, 50))  # Fondo gris oscuro
     fuente = pygame.font.SysFont("Arial", 50, bold=True)
@@ -42,8 +43,7 @@ def dibujar_pantalla_ganaste(pantalla, cant_errores, minutos, dificultad, puntaj
 
     return rect_caja  # Devuelve el rectángulo de la caja para detectar clics
 
-
-
+#------------------------------------------------------------------------------------------------------------
 def dibujar_boton_nueva_partida(pantalla):
     """
     Dibuja el boton reanudar en la pantalla
@@ -66,6 +66,8 @@ def dibujar_boton_nueva_partida(pantalla):
     pantalla.blit(texto_nueva_partida, (x + 20, y + 5))
     
     return rect_nueva_partida
+
+#------------------------------------------------------------------------------------------------------------
 
 def dibujar_boton_ver_puntajes(pantalla):
     """

@@ -565,7 +565,7 @@ def ganaste_el_sudoku(sudoku_actual, sudoku_completo):
 
 #--------------------------------------------------------------------------------------------
 
-def calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base):
+def calcular_puntaje(cant_errores, minutos, dificultad, puntaje_base, bonus_dificultad):
     if dificultad == "Facil":
         bonus_dificultad = 1.25
     elif dificultad == "Medio":

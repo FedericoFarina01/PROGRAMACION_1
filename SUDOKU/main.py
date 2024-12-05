@@ -52,6 +52,18 @@ cant_errores = 0
 puntaje_base = 1000
 caja_texto_activa = False
 
+#bonus_dificultad = 0
+
+if dificultad == "Facil":
+    bonus_dificultad = 1.25
+elif dificultad == "Medio":
+    bonus_dificultad = 1.5
+elif dificultad == "Dificil":
+    bonus_dificultad = 1.75  
+
+lista_jugadores = []
+lista_puntajes = []
+
 #--------------------------------------------------------------------------------------------------------------
 
 # Variables para el Sudoku
@@ -119,6 +131,7 @@ while juego_corriendo:
                 # Verificar si el sudoku fue completado correctamente
                 if ganaste_el_sudoku(sudoku_actual, sudoku_completo):
                     pantalla_activa = "ganaste"  # Si es correcto, cambiar a la pantalla de ganaste
+                    #puntaje_final = (puntaje_base - (cant_errores * 50) - (minutos * 10)) * bonus_dificultad
 
             elif pantalla_activa == "pausa":
                 if dibujar_boton_reanudar(pantalla).collidepoint(cursor): 
@@ -158,8 +171,17 @@ while juego_corriendo:
             elif pantalla_activa == "ganaste" and caja_texto_activa:
                 if evento.key == pygame.K_BACKSPACE:
                     nombre_jugador = nombre_jugador[:-1]  
-                elif len(nombre_jugador) < 15:  
+                elif len(nombre_jugador) < 15 and evento.key != pygame.K_RETURN:  
                     nombre_jugador += evento.unicode
+                elif evento.key == pygame.K_RETURN:
+            
+                    if 0 < len(nombre_jugador) <= 15:
+                        lista_jugadores.append(nombre_jugador)
+                        #lista_puntajes.append(puntaje_base - (cant_errores * 50) - (minutos * 10)* bonus_dificultad) 
+                        caja_texto_activa = False
+                        print(lista_jugadores)  
+                        #print(lista_puntajes)  
+
 
 
     # Dibujar pantallas

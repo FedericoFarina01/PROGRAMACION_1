@@ -11,6 +11,6 @@ def leer_json(nombre_archivo:str) -> list:
     return lista_puntajes
 
 def guardar_json(nombre_archivo:str,lista_puntajes):
-    with open(nombre_archivo,"w"):
-        json.dump(lista_puntajes,indent=4)
+    with open(nombre_archivo,"w") as archivo:
+        json.dump(lista_puntajes, archivo, indent=4)
     

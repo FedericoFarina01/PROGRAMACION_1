@@ -71,10 +71,11 @@ sudoku_actual = None
 #--------------------------------------------------------------------------------------------------------------
 
 # Variables json
+json_puntajes = "SUDOKU/usuarios.json"
 user_text = nombre_jugador  # Inicializa con el nombre actual del jugador
 input_rect = pygame.Rect(300, 300, 200, 40)
 fuente_texto = pygame.font.SysFont("Arial", 30)
-lista_puntajes = leer_json("SUDOKU/usuarios.json")
+lista_puntajes = leer_json(json_puntajes)
 
 #--------------------------------------------------------------------------------------------------------------
 
@@ -192,6 +193,7 @@ while juego_corriendo:
                     if 0 < len(nombre_jugador) <= 15:
                         indice_jugador = buscar_jugador(lista_puntajes,nombre_jugador)
                         cambiar_estadisticas_jugador(lista_puntajes,indice_jugador,puntaje_final,nombre_jugador)
+                        guardar_json(json_puntajes, lista_puntajes)
                         pantalla_activa = "inicio"
                         nombre_jugador = ""
                     else:

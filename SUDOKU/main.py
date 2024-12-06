@@ -183,6 +183,13 @@ while juego_corriendo:
                 if tecla_presionada == "backspace":
                     celda_actual == " "
 
+                if evento.key == pygame.K_DELETE:
+                    fila, columna = celda_actual
+                    if sudoku_actual[fila][columna] != " " and type(sudoku_actual[fila][columna]) == str:
+                        sudoku_actual[fila][columna] = " "
+
+                    rect_tablero = dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual,sudoku_completo)
+
             elif pantalla_activa == "ganaste" and caja_texto_activa:
                 if evento.key == pygame.K_BACKSPACE:
                     nombre_jugador = nombre_jugador[:-1]  
@@ -198,6 +205,8 @@ while juego_corriendo:
                         nombre_jugador = ""
                     else:
                         caja_texto_activa = False
+
+                
 
 
     # Dibujar pantallas

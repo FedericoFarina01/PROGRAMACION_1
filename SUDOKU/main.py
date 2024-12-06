@@ -102,23 +102,23 @@ while juego_corriendo:
                     sudoku_actual = sudoku_modificable(sudoku_oculto)
                     celda_actual = None
                     
-                elif dibujar_boton_puntajes(pantalla).collidepoint(cursor):
+                elif dibujar_boton_puntajes(pantalla).collidepoint(cursor): # PUNTAJES
                     ordenar_puntajes(lista_puntajes)
                     pantalla_activa = "puntajes"
 
-                elif dibujar_boton_salir(pantalla).collidepoint(cursor):
+                elif dibujar_boton_salir(pantalla).collidepoint(cursor): # SALIR
                     juego_corriendo = False
                     pygame.quit()
                     quit()
 
-                elif dibujar_boton_dificultad(pantalla, dificultad).collidepoint(cursor):
+                elif dibujar_boton_dificultad(pantalla, dificultad).collidepoint(cursor): # DICULTAD
                     dificultad = cambiar_dificultad(dificultad)
 
             # Detectar clic en los botones de la pantalla principal
             elif pantalla_activa == "principal":
                 celda_actual = resaltar_celda(pantalla, celda_actual, sudoku_celdas())
 
-                if dibujar_boton_reiniciar(pantalla).collidepoint(cursor):
+                if dibujar_boton_reiniciar(pantalla).collidepoint(cursor): # REINICIAR
                     celda_actual = None
                     sudoku_completo = matriz_resolucion()
                     sudoku_oculto = matriz_oculta(sudoku_completo, dificultad) 
@@ -126,20 +126,20 @@ while juego_corriendo:
                     tiempo_inicio = pygame.time.get_ticks()
                     cant_errores = 0
 
-                elif dibujar_boton_volver(pantalla).collidepoint(cursor):
+                elif dibujar_boton_volver(pantalla).collidepoint(cursor): # VOLVER
                     celda_actual = None
                     pantalla_activa = "inicio"
                     pygame.mixer.music.play(-1)
 
-                elif dibujar_boton_pausa(pantalla).collidepoint(cursor): 
+                elif dibujar_boton_pausa(pantalla).collidepoint(cursor): # PAUSA
                     pantalla_activa = "pausa"
                     
-
+            # Detectar clic en los botones de la pantalla pausa
             elif pantalla_activa == "pausa":
-                if dibujar_boton_reanudar(pantalla).collidepoint(cursor): 
+                if dibujar_boton_reanudar(pantalla).collidepoint(cursor): # REANUDAR
                         pantalla_activa = "principal"
 
-
+            # Detectar clic en los botones de la pantalla ganaste
             elif pantalla_activa == "ganaste":
                 if dibujar_boton_nueva_partida(pantalla).collidepoint(cursor):
                     pantalla_activa = "principal"
@@ -159,12 +159,12 @@ while juego_corriendo:
                     else:
                         caja_texto_activa = False 
 
-
+            # Detectar clic en los botones de la pantalla puntajes
             elif pantalla_activa == "puntajes":
                 if dibujar_boton_volver(pantalla).collidepoint(cursor):
                     pantalla_activa = "inicio"
 
-
+        # Eventos de teclado
         if evento.type == pygame.KEYDOWN:
             tecla_presionada = pygame.key.name(evento.key)
             if pantalla_activa == "principal":
@@ -190,7 +190,8 @@ while juego_corriendo:
 
                     rect_tablero = dibujar_matriz_sudoku(pantalla, sudoku_actual, celda_actual,sudoku_completo)
 
-            elif pantalla_activa == "ganaste" and caja_texto_activa:
+            # Escribir nombre en caja de texto
+            elif pantalla_activa == "ganaste" and caja_texto_activa: 
                 if evento.key == pygame.K_BACKSPACE:
                     nombre_jugador = nombre_jugador[:-1]  
                 elif len(nombre_jugador) < 15 and evento.key != pygame.K_RETURN:  
@@ -206,7 +207,6 @@ while juego_corriendo:
                     else:
                         caja_texto_activa = False
 
-                
 
 
     # Dibujar pantallas

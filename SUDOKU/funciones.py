@@ -320,6 +320,8 @@ def ocultar_datos_matriz_segun_dificultad(matriz: list, dificultad: str, total_c
     Parametros:
         matriz (list): Matriz del Sudoku (9x9) que se desea modificar.
         dificultad (str): Nivel de dificultad ("Facil", "Medio", "Dificil") segun desee el usuario.
+        total_celdas (int): Cantidad de celdas del tablero
+        celdas_a_ocultar (int): Cantidad de celdas a ocultar
         
     Retorna:
         matriz (list): Matriz modificada con celdas ocultas.
@@ -348,6 +350,8 @@ def dibujar_matriz_sudoku(pantalla, matriz, celda_actual, sudoku_terminado, desd
         pantalla: La pantalla de Pygame donde se dibujara.
         matriz: La matriz de Sudoku que se debe mostrar.
         celda_actual: La celda actual en la que se encuentra el usuario.
+        sudoku_terminado: El sudoku del juego que debera completar el jugador
+        desde, hasta: Conforman el rango para dibujar las lineas
 
     Retorna:
         rect_tablero : Retorna el rectangulo del tablero 
@@ -606,7 +610,7 @@ def calcular_tiempo(tiempo_inicio):
 
     return minutos_transcurridos
 
-def ordenar_puntajes(lista_puntajes):
+def ordenar_puntajes(lista_puntajes: list):
     """
     Ordena los puntaje de la lista_puntajes del más alto al más bajo
 
@@ -620,7 +624,7 @@ def ordenar_puntajes(lista_puntajes):
                 lista_puntajes[i] = lista_puntajes[j]
                 lista_puntajes[j] = aux_puntaje
             
-def buscar_jugador(lista_puntajes,nombre_jugador) -> int:
+def buscar_jugador(lista_puntajes: list, nombre_jugador: str) -> int:
     """
     Busca si un jugador se encuentra o no en la lista de puntajes
 
@@ -640,7 +644,7 @@ def buscar_jugador(lista_puntajes,nombre_jugador) -> int:
     
     return indice
 
-def cambiar_estadisticas_jugador(lista_puntajes,indice_jugador,puntos,nombre):
+def cambiar_estadisticas_jugador(lista_puntajes: list, indice_jugador: int, puntos: float, nombre: str):
     """
     Modifica los datos de un jugador para que solo se guarde su puntaje más alto en la lista_puntajes
 

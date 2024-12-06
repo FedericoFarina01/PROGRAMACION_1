@@ -2,7 +2,7 @@ import json
 import os
 
 def leer_json(nombre_archivo:str) -> list:
-    if os.path.exists(nombre_archivo):
+    if os.path.exists(nombre_archivo): # Comprueba que exista la ruta del archivo
         with open(nombre_archivo,"r") as archivo:
             lista_puntajes = json.load(archivo)
     else:
